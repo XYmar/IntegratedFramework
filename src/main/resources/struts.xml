@@ -161,6 +161,8 @@
                 method="emulateApsInterResult"/>
         <action name="recoverInterX" class="com.rengu.actions.aps.FeedBackStateAction" method="recoverInterX"/>
         <action name="deleteOrder" class="com.rengu.actions.aps.FeedBackStateAction" method="deleteOrder"/>
+
+        <action name="switchAPSModel" class="com.rengu.actions.aps.SwitchAPSAction" method="switchAPSModel"/>
     </package>
 
     <!--异常处理-->
@@ -171,6 +173,13 @@
                 method="processOrderError"/>
         <action name="processExceptionHandling" class="com.rengu.actions.aps.ErrorProcessAction"
                 method="processProcessError"/>
+
+        <action name="cancelResource" class="com.rengu.actions.AdjustDeviceAction"
+                method="cancelResource"/>
+
+        <action name="resumeResource" class="com.rengu.actions.AdjustDeviceAction"
+                method="resumeResource"/>
+
     </package>
 
     <!--异常模拟-->

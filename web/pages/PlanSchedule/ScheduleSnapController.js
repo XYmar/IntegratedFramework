@@ -54,6 +54,8 @@ angular.module("IntegratedFramework.ScheduleSnapController", ['ngRoute'])
             $scope.hasDispatchMes = false;
             $scope.interactiveCount = "";
 
+            $scope.detail = true;
+
 
             //快照对比页
             pageCount = $(".MyPage").size();
@@ -462,6 +464,8 @@ angular.module("IntegratedFramework.ScheduleSnapController", ['ngRoute'])
                  $scope.hasDispatchMes = false;
                  $scope.messStatus = "--";
 
+                 $scope.detail = false;
+
                  var idRoot;
                  var val = $(this).children('option:selected').val();
                  if (val.length > 0) {
@@ -780,4 +784,27 @@ angular.module("IntegratedFramework.ScheduleSnapController", ['ngRoute'])
                 })
             }
         }
+
+
+        //显示当前排程的布局
+        $scope.Detail = function (event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+            if (target.parentNode.tagName.toLowerCase() == "td") {
+                var rowIndex = target.parentNode.parentNode.rowIndex;
+                //alert(rowIndex);
+                var id = document.getElementById("table_info").rows[rowIndex].cells[0].innerHTML;
+                //alert(id);
+                var parm={};
+                parm.id=id;
+                var info=JSON.stringify(parm);
+                myHttpService.post(serviceList.LayoutDetail,info).then(function successCallback(response) {
+                    $scope.layoutDetailList = response.data;
+
+                }, function errorCallback() {
+                    notification.sendNotification("alert", "请求失败");
+                })
+
+            }
+        };
     });

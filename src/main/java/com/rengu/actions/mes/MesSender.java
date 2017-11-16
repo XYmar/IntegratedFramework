@@ -86,6 +86,22 @@ public class MesSender {
         sendMessage(rootNode.toString());
     }
 
+    public void sendReplyMessage(String messType, String uuid, String revicer) {
+        if (revicer == null) {
+            sendReplyMessage(messType, uuid);
+        }
+        rootNode = objMapper.createObjectNode();
+        rootNode.put("FC", messType);
+        rootNode.put("REVICER", revicer);
+        rootNode.put("SENDER", messReciver);
+        rootNode.put("UUID", uuid);
+        ObjectNode dataNode = objMapper.createObjectNode();
+        dataNode.put("result", "OK");
+        dataNode.put("type", "1");
+        rootNode.put("DATA", dataNode);
+        sendMessage(rootNode.toString());
+    }
+
     //发送计划、订单等消息
     public void sendData(String messType, ObjectNode dataNode) {
         rootNode = objMapper.createObjectNode();
@@ -93,11 +109,8 @@ public class MesSender {
         rootNode.put("REVICER", messSender);
         rootNode.put("SENDER", messReciver);
         rootNode.put("UUID", Tools.getUUID());
-
         rootNode.put("DATA", dataNode);
-
         MyLog.getLogger().info(rootNode.toString());
-
         sendMessage(rootNode.toString());
     }
 
@@ -111,5 +124,4 @@ public class MesSender {
         }
         return sender;
     }
-
 }

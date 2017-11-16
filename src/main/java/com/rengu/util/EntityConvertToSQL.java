@@ -36,6 +36,282 @@ public class EntityConvertToSQL {
         return SQLString;
     }
 
+    //简化模型process
+    public static String insertSQLForAPS(ApsProcess1Entity apsProcess1Entity) {
+        String SQLString = "INSERT INTO " + DatabaseInfo.APS_PROCESS + " VALUES ('" + apsProcess1Entity.getId()
+                + "','" + apsProcess1Entity.getName()
+                + "','" + apsProcess1Entity.getIdProduct()
+                + "','" + apsProcess1Entity.getIdParent()
+                + "','" + apsProcess1Entity.getIdPrec()
+                + "','" + apsProcess1Entity.getIdSucc()
+                + "'," + apsProcess1Entity.getMinTimeSucc()
+                + "," + apsProcess1Entity.getMaxTimeSucc()
+                + "," + apsProcess1Entity.getOrdToParent()
+                + ",'" + apsProcess1Entity.getSlot1()
+                + "','" + apsProcess1Entity.getSlot2()
+                + "'," + apsProcess1Entity.getInitTime()
+                + "," + apsProcess1Entity.getUnitTime()
+                + "," + apsProcess1Entity.getPostTime()
+                + "," + apsProcess1Entity.getCheckTime()
+                + "," + apsProcess1Entity.getDelta()
+                + "," + apsProcess1Entity.getEstimate()
+                + ",'" + apsProcess1Entity.getContinuous()
+                + "'," + apsProcess1Entity.getQuantity()
+                + "," + apsProcess1Entity.getMinQtySwitch()
+                + "," + apsProcess1Entity.getMaxQtySwitch()
+                + "," + apsProcess1Entity.getApsSwitch()
+                + "," + apsProcess1Entity.getMaxResourceDivision()
+                + "," + apsProcess1Entity.getMinTimeDivision()
+                + "," + apsProcess1Entity.getMinQtyDivision()
+                + "," + apsProcess1Entity.getMinQtyBatch()
+                + "," + apsProcess1Entity.getMinTimeBatch()
+                + ",'" + apsProcess1Entity.getIdCoupledGroupResource()
+                + "','" + apsProcess1Entity.getIdCoupledTypeShift()
+                + "'," + apsProcess1Entity.getOrdToRoot()
+                + ",'" + apsProcess1Entity.getOrdToRootChild()
+                + "','" + apsProcess1Entity.getIdRoot()
+                + "','" + apsProcess1Entity.getIdExclusive()
+                + "','" + apsProcess1Entity.getIdCoupledResource()
+                + "'," + apsProcess1Entity.getTypeShift()
+                + ",'" + apsProcess1Entity.getIdPrecSwitch()
+                + "'," + apsProcess1Entity.getMaxQtyDivision()
+                + "," + apsProcess1Entity.getMaxTimeDivision()
+                + "," + apsProcess1Entity.getMaxQtyBatch()
+                + "," + apsProcess1Entity.getMaxTimeBatch()
+                + ",'" + apsProcess1Entity.getPreemptive()
+                + "','" + apsProcess1Entity.getExclusiveJob()
+                + "','" + apsProcess1Entity.getExclusiveOrder()
+                + "','" + apsProcess1Entity.getCoupledTypeOrder()
+                + "','" + apsProcess1Entity.getIdCoupled()
+                + "','" + apsProcess1Entity.getIdCoupledShift()
+                + "','" + apsProcess1Entity.getIdCoupledTypeResource()
+                + "','" + apsProcess1Entity.getIdCoupledTypeSite()
+                + "','" + apsProcess1Entity.getIdCoupledSite()
+                + "'," + null
+                + "," + apsProcess1Entity.getUnitQuantity()
+                + ",'" + apsProcess1Entity.getIdIcon()
+                + "'," + apsProcess1Entity.getModQtySwitch()
+                + ",'" + apsProcess1Entity.getBatch()
+                + "'," + apsProcess1Entity.getModQtyBatch()
+                + "," + apsProcess1Entity.getModResourceDivision()
+                + "," + apsProcess1Entity.getModTimeBatch()
+                + "," + apsProcess1Entity.getModQtyDivision()
+                + "," + apsProcess1Entity.getModTimeDivision()
+                + "," + apsProcess1Entity.getMinResourceDivision()
+                + "," + apsProcess1Entity.getNbTask()
+                + ",'" + apsProcess1Entity.getIdTypeResourceNext()
+                + "','" + apsProcess1Entity.getIdNextResource()
+                + "','" + apsProcess1Entity.getColor()
+                + "')";
+        return SQLString;
+    }
+
+    //细化模型process
+    public static String insertSQLForAPS(ApsProcess2Entity apsProcess1Entity) {
+        String SQLString = "INSERT INTO " + DatabaseInfo.APS_PROCESS + " VALUES ('" + apsProcess1Entity.getId()
+                + "','" + apsProcess1Entity.getName()
+                + "','" + apsProcess1Entity.getIdProduct()
+                + "','" + apsProcess1Entity.getIdParent()
+                + "','" + apsProcess1Entity.getIdPrec()
+                + "','" + apsProcess1Entity.getIdSucc()
+                + "'," + apsProcess1Entity.getMinTimeSucc()
+                + "," + apsProcess1Entity.getMaxTimeSucc()
+                + "," + apsProcess1Entity.getOrdToParent()
+                + ",'" + apsProcess1Entity.getSlot1()
+                + "','" + apsProcess1Entity.getSlot2()
+                + "'," + apsProcess1Entity.getInitTime()
+                + "," + apsProcess1Entity.getUnitTime()
+                + "," + apsProcess1Entity.getPostTime()
+                + "," + apsProcess1Entity.getCheckTime()
+                + "," + apsProcess1Entity.getDelta()
+                + "," + apsProcess1Entity.getEstimate()
+                + ",'" + apsProcess1Entity.getContinuous()
+                + "'," + apsProcess1Entity.getQuantity()
+                + "," + apsProcess1Entity.getMinQtySwitch()
+                + "," + apsProcess1Entity.getMaxQtySwitch()
+                + "," + apsProcess1Entity.getApsSwitch()
+                + "," + apsProcess1Entity.getMaxResourceDivision()
+                + "," + apsProcess1Entity.getMinTimeDivision()
+                + "," + apsProcess1Entity.getMinQtyDivision()
+                + "," + apsProcess1Entity.getMinQtyBatch()
+                + "," + apsProcess1Entity.getMinTimeBatch()
+                + ",'" + apsProcess1Entity.getIdCoupledGroupResource()
+                + "','" + apsProcess1Entity.getIdCoupledTypeShift()
+                + "'," + apsProcess1Entity.getOrdToRoot()
+                + ",'" + apsProcess1Entity.getOrdToRootChild()
+                + "','" + apsProcess1Entity.getIdRoot()
+                + "','" + apsProcess1Entity.getIdExclusive()
+                + "','" + apsProcess1Entity.getIdCoupledResource()
+                + "'," + apsProcess1Entity.getTypeShift()
+                + ",'" + apsProcess1Entity.getIdPrecSwitch()
+                + "'," + apsProcess1Entity.getMaxQtyDivision()
+                + "," + apsProcess1Entity.getMaxTimeDivision()
+                + "," + apsProcess1Entity.getMaxQtyBatch()
+                + "," + apsProcess1Entity.getMaxTimeBatch()
+                + ",'" + apsProcess1Entity.getPreemptive()
+                + "','" + apsProcess1Entity.getExclusiveJob()
+                + "','" + apsProcess1Entity.getExclusiveOrder()
+                + "','" + apsProcess1Entity.getCoupledTypeOrder()
+                + "','" + apsProcess1Entity.getIdCoupled()
+                + "','" + apsProcess1Entity.getIdCoupledShift()
+                + "','" + apsProcess1Entity.getIdCoupledTypeResource()
+                + "','" + apsProcess1Entity.getIdCoupledTypeSite()
+                + "','" + apsProcess1Entity.getIdCoupledSite()
+                + "'," + null
+                + "," + apsProcess1Entity.getUnitQuantity()
+                + ",'" + apsProcess1Entity.getIdIcon()
+                + "'," + apsProcess1Entity.getModQtySwitch()
+                + ",'" + apsProcess1Entity.getBatch()
+                + "'," + apsProcess1Entity.getModQtyBatch()
+                + "," + apsProcess1Entity.getModResourceDivision()
+                + "," + apsProcess1Entity.getModTimeBatch()
+                + "," + apsProcess1Entity.getModQtyDivision()
+                + "," + apsProcess1Entity.getModTimeDivision()
+                + "," + apsProcess1Entity.getMinResourceDivision()
+                + "," + apsProcess1Entity.getNbTask()
+                + ",'" + apsProcess1Entity.getIdTypeResourceNext()
+                + "','" + apsProcess1Entity.getIdNextResource()
+                + "','" + apsProcess1Entity.getColor()
+                + "')";
+        return SQLString;
+    }
+
+    //简化模型typeresource
+    public static String insertSQLForAPS(ApsTyperesource1Entity apsTyperesource1Entity) {
+        String SQLString = "INSERT INTO " + DatabaseInfo.APS_TYPERESOURCE + " VALUES ('" + apsTyperesource1Entity.getId()
+                + "'," + apsTyperesource1Entity.getRatio()
+                + ",'" + apsTyperesource1Entity.getName()
+                + "')";
+        return SQLString;
+    }
+
+    //细化模型typeresource
+    public static String insertSQLForAPS(ApsTyperesource2Entity apsTyperesource1Entity) {
+        String SQLString = "INSERT INTO " + DatabaseInfo.APS_TYPERESOURCE + " VALUES ('" + apsTyperesource1Entity.getId()
+                + "'," + apsTyperesource1Entity.getRatio()
+                + ",'" + apsTyperesource1Entity.getName()
+                + "')";
+        return SQLString;
+    }
+
+    //简化模型apsTyperesourceSite
+    public static String insertSQLForAPS(ApsProcessTyperesourceSite1Entity apsProcessTyperesource1Entity) {
+        String SQLString = "INSERT INTO " + DatabaseInfo.APS_PROCESS_TYPERESOURCE_SITE + " VALUES ('" + apsProcessTyperesource1Entity.getIdProcess()
+                + "','" + apsProcessTyperesource1Entity.getIdTypeResource()
+                + "'," + apsProcessTyperesource1Entity.getMinResource()
+                + "," + apsProcessTyperesource1Entity.getMaxResource()
+                + ",'" + apsProcessTyperesource1Entity.getModResource()
+                + "'," + apsProcessTyperesource1Entity.getGrp()
+                + "," + apsProcessTyperesource1Entity.getWeightParallel()
+                + "," + apsProcessTyperesource1Entity.getWeightSequence()
+                + ",'" + apsProcessTyperesource1Entity.getTypeSite()
+                + "','" + apsProcessTyperesource1Entity.getIdSite()
+                + "','" + apsProcessTyperesource1Entity.getSiteInGroupResource()
+                + "','" + apsProcessTyperesource1Entity.getPrimaryForTime()
+                + "','" + apsProcessTyperesource1Entity.getPrimaryForNext()
+                + "')";
+        return SQLString;
+    }
+
+    //细化模型apsTyperesourceSite
+    public static String insertSQLForAPS(ApsProcessTyperesourceSite2Entity apsProcessTyperesource1Entity) {
+        String SQLString = "INSERT INTO " + DatabaseInfo.APS_PROCESS_TYPERESOURCE_SITE + " VALUES ('" + apsProcessTyperesource1Entity.getIdProcess()
+                + "','" + apsProcessTyperesource1Entity.getIdTypeResource()
+                + "'," + apsProcessTyperesource1Entity.getMinResource()
+                + "," + apsProcessTyperesource1Entity.getMaxResource()
+                + ",'" + apsProcessTyperesource1Entity.getModResource()
+                + "'," + apsProcessTyperesource1Entity.getGrp()
+                + "," + apsProcessTyperesource1Entity.getWeightParallel()
+                + "," + apsProcessTyperesource1Entity.getWeightSequence()
+                + ",'" + apsProcessTyperesource1Entity.getTypeSite()
+                + "','" + apsProcessTyperesource1Entity.getIdSite()
+                + "','" + apsProcessTyperesource1Entity.getSiteInGroupResource()
+                + "','" + apsProcessTyperesource1Entity.getPrimaryForTime()
+                + "','" + null
+                + "')";
+        return SQLString;
+    }
+
+    //简化模型resource
+    public static String insertSQLForAPS(ApsResource1Entity apsResource1Entity) {
+        String SQLString = "INSERT INTO " + DatabaseInfo.APS_RESOURCE + " VALUES ('" + apsResource1Entity.getId()
+                + "','" + apsResource1Entity.getName()
+                + "','" + apsResource1Entity.getIdTypeResource()
+                + "','" + apsResource1Entity.getIdFeatureResource()
+                + "','" + apsResource1Entity.getCritical()
+                + "','" + apsResource1Entity.getIdShift()
+                + "','" + apsResource1Entity.getDateForbidden()
+                + "'," + null
+                + "," + apsResource1Entity.getRate()
+                + ",'" + apsResource1Entity.getColor()
+                + "'," + apsResource1Entity.getState()
+                + ",'" + apsResource1Entity.getWeekend()
+                + "','" + apsResource1Entity.getCalendar()
+                + "','" + apsResource1Entity.getIdGroupResource()
+                + "','" + apsResource1Entity.getIdSite()
+                + "'," + apsResource1Entity.getMobility()
+                + ",'" + apsResource1Entity.getNameShift()
+                + "','" + apsResource1Entity.getSlot()
+                + "','" + apsResource1Entity.getIdIcon()
+                + "','" + apsResource1Entity.getTypeSite()
+                + "','" + apsResource1Entity.getIdSite0()
+                + "','" + apsResource1Entity.getIdUser()
+                + "','" + apsResource1Entity.getIdSiteGroupResource()
+                + "'," + null
+                + "," + null
+                + "," + null
+                + "," + null
+                + ",'" + apsResource1Entity.getIdSiteSequence()
+                + "'," + apsResource1Entity.getQuantity0()
+                + "," + apsResource1Entity.getSizeIcon()
+                + ",'" + apsResource1Entity.getIdClub()
+                + "','" + apsResource1Entity.getUnit()
+                + "','" + apsResource1Entity.getMakespan()
+                + "','" + apsResource1Entity.getSameTypeSequence()
+                + "')";
+        return SQLString;
+    }
+
+    //细化模型resource
+    public static String insertSQLForAPS(ApsResource2Entity apsResource1Entity) {
+        String SQLString = "INSERT INTO " + DatabaseInfo.APS_RESOURCE + " VALUES ('" + apsResource1Entity.getId()
+                + "','" + apsResource1Entity.getName()
+                + "','" + apsResource1Entity.getIdTypeResource()
+                + "','" + apsResource1Entity.getIdFeatureResource()
+                + "','" + apsResource1Entity.getCritical()
+                + "','" + apsResource1Entity.getIdShift()
+                + "','" + apsResource1Entity.getDateForbidden()
+                + "'," + null
+                + "," + apsResource1Entity.getRate()
+                + ",'" + apsResource1Entity.getColor()
+                + "'," + apsResource1Entity.getState()
+                + ",'" + apsResource1Entity.getWeekend()
+                + "','" + apsResource1Entity.getCalendar()
+                + "','" + apsResource1Entity.getIdGroupResource()
+                + "','" + apsResource1Entity.getIdSite()
+                + "'," + apsResource1Entity.getMobility()
+                + ",'" + apsResource1Entity.getNameShift()
+                + "','" + apsResource1Entity.getSlot()
+                + "','" + apsResource1Entity.getIdIcon()
+                + "','" + apsResource1Entity.getTypeSite()
+                + "','" + apsResource1Entity.getIdSite0()
+                + "','" + apsResource1Entity.getIdUser()
+                + "','" + apsResource1Entity.getIdSiteGroupResource()
+                + "'," + null
+                + "," + null
+                + "," + null
+                + "," + null
+                + ",'" + apsResource1Entity.getIdSiteSequence()
+                + "'," + apsResource1Entity.getQuantity0()
+                + "," + apsResource1Entity.getSizeIcon()
+                + ",'" + apsResource1Entity.getIdClub()
+                + "','" + apsResource1Entity.getUnit()
+                + "','" + apsResource1Entity.getMakespan()
+                + "','" + apsResource1Entity.getSameTypeSequence()
+                + "')";
+        return SQLString;
+    }
+
     public static String insertSQLForAPS(RG_ResourceEntity rg_resourceEntity) throws SQLException, ClassNotFoundException {
         //拼接IdTypeResource集合
         StringBuffer idTypeResourceBuff = new StringBuffer();

@@ -67,7 +67,8 @@ angular.module("IntegratedFramework.ResourceListController", ['ngRoute'])
             params.nameShift = $("#selectAdd option:selected").val();
             params.weekend = $("#selectAdd2 option:selected").val();
             params.rate = parseInt($("input[name='add-rate']").val());
-            params.state = $("input[name='add-state']").val();
+           //params.state = $("input[name='add-state']").val();
+            params.state = $("#selectState option:selected").val();
             addData = JSON.stringify(params);
 
 
@@ -103,8 +104,16 @@ angular.module("IntegratedFramework.ResourceListController", ['ngRoute'])
                 $("#add-weekend").addClass(" has-success");
             }
 
+            if (!validate.checkLength(params.state)) {
+                $("#add-state").removeClass("has-success");
+                $("#add-state").addClass("has-error");
+            } else {
+                $("#add-state").removeClass("has-error");
+                $("#add-state").addClass(" has-success");
+            }
+
             if (validate.checkLength(params.name) && validate.checkLength(params.rate) && validate.checkNumber(params.rate) &&
-                validate.checkLength(params.nameShift) && validate.checkLength(params.weekend)) {
+                validate.checkLength(params.nameShift) && validate.checkLength(params.weekend) && validate.checkLength(params.state)) {
                 return true;
             } else {
                 return false;

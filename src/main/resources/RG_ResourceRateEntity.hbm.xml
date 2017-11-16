@@ -9,10 +9,17 @@
             <column name="id" sql-type="varchar(200)" length="100"/>
         </id>
 
-        <one-to-one name="idResource" property-ref="resourceRate" cascade="all"/>
+        <property name="idSnapshot">
+            <column name="idSnapshot" sql-type="varchar(200)" not-null="false"/>
+        </property>
 
-        <many-to-one name="idSnapshot" class="com.rengu.entity.RG_SnapshotNodeEntity">
-            <column name="idSnapshot" not-null="false"/>
-        </many-to-one>
+        <property name="idResource">
+            <column name="idResource" sql-type="varchar(200)" not-null="false"/>
+        </property>
+
+        <property name="rate">
+            <column name="rate" sql-type="double" not-null="false"/>
+        </property>
+
     </class>
 </hibernate-mapping>

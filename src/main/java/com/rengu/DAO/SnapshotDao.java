@@ -233,7 +233,7 @@ public class SnapshotDao {
                                 RG_EmulateResultEntity nextResult = new RG_EmulateResultEntity();
                                 //任务名
                                 nextResult.setTask(taskList[m]);
-                                //货物名
+                                //货物名perPlanDelayMinuteTime
                                 nextResult.setGoods(entity.getGoods());
                                 //地点名(若不存在为null)
                                 if (entity.getPreProcessSites() != null) {
@@ -511,7 +511,8 @@ public class SnapshotDao {
                         }
 
                         //生产工艺信息
-                        NativeQuery query = session.createNativeQuery("select rplan.id,idTask,idOrder,nameTask,rplan.idProduct,quantityTask,t1Task,t2Task from rg_plan rplan left join rg_process rprocess on rplan.idProcess=rprocess.id where rprocess.transport = 0 and idSnapshort=:snapShot ");
+//                        NativeQuery query = session.createNativeQuery("select rplan.id,idTask,idOrder,nameTask,rplan.idProduct,quantityTask,t1Task,t2Task from rg_plan rplan left join rg_process rprocess on rplan.idProcess=rprocess.id where rprocess.transport = 0 and idSnapshort=:snapShot ");
+                        NativeQuery query = session.createNativeQuery("SELECT p.id, p.idTask, p.idOrder, p.nameTask, prod.mesId , p.quantityTask, p.t1Task, p.t2Task FROM rg_plan p, rg_product prod, rg_process proc WHERE proc.transport = 0 AND p.idSnapshort =:snapShot AND p.idTask NOT LIKE '%JC%' AND proc.idProduct IS NULL AND p.idProcess = proc.id AND p.idProduct = prod.id");
                         query.setParameter("snapShot", id);
                         List plans = query.list();
                         for (int i = 0; i < plans.size(); i++) {

@@ -102,6 +102,7 @@
                     <i class="fa fa-cog bg-red fa-spin " ng-if="record.data.eventType == 2"></i>
                     <!--产生工厂布局调整异常-->
                     <i class="fa fa-map-o bg-yellow" ng-if="record.data.eventType == 3"></i>
+                    <i class="fa fa-cog bg-red fa-spin" ng-if="record.data.eventType == 4"></i>
                     <div class="timeline-item" ng-if="record.type=='log'">
                         <span class="time"><i class="fa fa-clock-o"></i>{{record.data.creatTime | date:'yyyy-MM-dd HH:mm:ss' }}</span>
                         <h3 class="timeline-header no-border" ng-if="record.data.logItemtype == 0"><a href="#">{{record.data.title}}</a>{{record.data.content}}

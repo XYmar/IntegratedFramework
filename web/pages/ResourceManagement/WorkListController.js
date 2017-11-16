@@ -59,7 +59,7 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
                 });
 
                 setTimeout(function () {
-                    notification.sendNotification("alert", "已下发");
+                    notification.sendNotification("confirm", "已下发");
                     hideLoadingPage();
                 }, 2000);
             }

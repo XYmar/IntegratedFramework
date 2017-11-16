@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.rengu.entity.RG_ElectricityInfo" table="RG_ElectricityInfo" schema="testdatabase">
+        <id name="id">
+            <column name="id" sql-type="varchar(255)" length="255"/>
+        </id>
+        <property name="carryId">
+            <column name="carryId" sql-type="varchar(255)" not-null="false"/>
+        </property>
+        <property name="state">
+            <column name="state" sql-type="tinyint(1)" length="100" not-null="false"/>
+        </property>
+        <property name="jobDesc">
+            <column name="jobDesc" sql-type="varchar(255)" not-null="false"/>
+        </property>
+        <property name="idOrder">
+            <column name="idOrder" sql-type="varchar(255)" not-null="false"/>
+        </property>
+        <property name="reportTime" type="java.util.Date">
+            <column name="reportTime" sql-type="datetime" length="20" not-null="false"/>
+        </property>
+    </class>
+</hibernate-mapping>

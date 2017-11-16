@@ -46,9 +46,11 @@
                             <th>上报时间</th>
                             <th>异常来源</th>
                             <th>处理时间</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="device in adjustDeviceList track by $index" ng-init="renderTable($last)"
                             onclick="a(this)">
+                            <td style="display:none" id="id">{{device.id}}</td>
                             <td>{{device.orderId}}</td>
                             <td>{{device.resoureId}}</td>
                             <td>{{device.cancelTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
@@ -58,7 +60,21 @@
                                 <span ng-if="device.processTime ==null">--</span>
                                 <span ng-if="device.processTime !=null">{{device.processTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                             </td>
-                            <td></td>
+                            <td>
+                                <span ng-if="device.state == 1">
+                                    <button type="button" class="btn btn-block btn-sm btn-info"
+                                            ng-click="HandleResource($event)">撤销
+                                    </button>
+
+                                </span>
+
+                                <span ng-if="device.state == 0">
+                                    <button type="button" class="btn btn-block btn-sm btn-info"
+                                            ng-click="HandleResource($event)">恢复
+                                    </button>
+
+                                </span>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

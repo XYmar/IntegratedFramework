@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.rengu.entity.ApsResource2Entity" table="aps_resource2" schema="testdatabase">
+        <id name="id" column="id"/>
+        <property name="idEn" column="id_en"/>
+        <property name="nameEn" column="name_en"/>
+        <property name="name" column="name"/>
+        <property name="unit" column="unit"/>
+        <property name="idTypeResource" column="IdTypeResource"/>
+        <property name="idGroupResource" column="idGroupResource"/>
+        <property name="idFeatureResource" column="idFeatureResource"/>
+        <property name="idSite0" column="idSite0"/>
+        <property name="idSite" column="IdSite"/>
+        <property name="idSiteGroupResource" column="IdSiteGroupResource"/>
+        <property name="typeSite" column="TypeSite"/>
+        <property name="mobility" column="mobility"/>
+        <property name="quantity0" column="quantity0"/>
+        <property name="idSiteSequence" column="idSiteSequence"/>
+        <property name="critical" column="critical"/>
+        <property name="dateForbidden" column="DateForbidden"/>
+        <property name="weekend" column="weekend"/>
+        <property name="idShift" column="IdShift"/>
+        <property name="nameShift" column="NameShift"/>
+        <property name="calendar" column="Calendar"/>
+        <property name="slot" column="Slot"/>
+        <property name="rate" column="rate"/>
+        <property name="color" column="color"/>
+        <property name="state" column="state"/>
+        <property name="sizeIcon" column="sizeIcon"/>
+        <property name="idIcon" column="idIcon"/>
+        <property name="makespan" column="makespan"/>
+        <property name="idClub" column="idClub"/>
+        <property name="idUser" column="idUser"/>
+        <property name="sameTypeSequence" column="sameTypeSequence"/>
+    </class>
+</hibernate-mapping>

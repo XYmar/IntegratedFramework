@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.rengu.entity.RG_MesMessageLog" table="RG_MesMessageLog" schema="testdatabase">
+        <id name="id">
+            <column name="id" sql-type="varchar(100)" length="100"/>
+        </id>
+        <property name="receiveTime" type="java.util.Date">
+            <column name="receiveTime" sql-type="datetime" length="20" not-null="false"/>
+        </property>
+        <property name="messageType">
+            <column name="messageType" sql-type="varchar(255)" length="255" not-null="false"/>
+        </property>
+        <property name="message">
+            <column name="message" sql-type="varchar(10000)" length="10000" not-null="false"/>
+        </property>
+    </class>
+</hibernate-mapping>

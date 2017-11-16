@@ -199,6 +199,9 @@ angular.module("IntegratedFramework", [
         service.queryApsState = backUrl + "aps/apsState.action";
         service.currSheduleInfo = backUrl + "aps/scheduleDetail.action";
         service.emulateApsInterResult = backUrl + "aps/emulateApsInterResult.action";
+
+        service.switchModel = backUrl + "aps/switchAPSModel.action";
+
         //获取异常数量接口
         service.findAllExceptionUrl = backUrl + "mainpage/getAllExcepitonNumInfo.action";
         //获取EvenLog接口
@@ -218,6 +221,11 @@ angular.module("IntegratedFramework", [
         service.DeportInfoList = backUrl + "mes/getAllById.action";
         service.AllDeportInfoList = backUrl + "mes/getAllDeportInfo.action";
         service.AllAGVInfoList = backUrl + "mes/getAllAGVInfo.action";
+
+        //撤销资源
+        service.CancelResource = backUrl + "exceptionHandling/cancelResource.action";
+        //恢复资源
+        service.ResumeResource = backUrl + "exceptionHandling/resumeResource.action";
 
 
         return service;
@@ -309,6 +317,7 @@ angular.module("IntegratedFramework", [
                 layer.confirm('将选中数据下发APS？', {
                     btn: ['下发', '取消'] //按钮
                 }, function () {
+                    layer.closeAll('dialog');
                     confirmDispatchAps();
                 }, function () {
                     resetDispatchAps();

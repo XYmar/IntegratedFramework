@@ -79,6 +79,7 @@ public class OrdersAction extends SuperAction {
         rg_orderEntity.setState(Byte.parseByte("0"));//设置订单状态为计划
         rg_orderEntity.setT1(rg_orderEntity.getT0());
         rg_orderEntity.setFinished(false);
+        rg_orderEntity.setFinishQuantity(Short.parseShort("0"));
         rg_orderEntity.setIdGroupResource("G01");
         rg_orderEntity.setClubByIdClub(DAOFactory.getClubDAOImplInstance().findAllById("001"));
         OrdersDAOImpl ordersDAOInstance = DAOFactory.getOrdersDAOInstance();

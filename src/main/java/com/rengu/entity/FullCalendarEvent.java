@@ -11,6 +11,7 @@ public class FullCalendarEvent {
     private boolean AllDay;
     private Date Start;
     private Date End;
+    private String color;
 
     public String getId() {
         return Id;
@@ -50,5 +51,13 @@ public class FullCalendarEvent {
 
     public void setEnd(Date end) {
         End = end;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

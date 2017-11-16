@@ -40,7 +40,7 @@ public class Emulate3DAction extends SuperAction {
     }
 
     //【已调】获取所有订单结果信息，按照时间排序
-    public void getAllOrderEmulateFlow(){
+    public void getAllOrderEmulateFlow() {
         ActionContext context = ActionContext.getContext();
         Map<String, Object> parameterMap = context.getParameters();
 

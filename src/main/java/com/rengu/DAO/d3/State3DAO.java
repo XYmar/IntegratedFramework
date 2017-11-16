@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.rengu.entity.RG_AdjustLayoutEntity;
-import com.rengu.entity.RG_LayoutDetailEntity;
-import com.rengu.entity.RG_LayoutEntity;
-import com.rengu.entity.RG_State3DEntity;
+import com.rengu.entity.*;
 import com.rengu.util.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -302,6 +299,9 @@ public class State3DAO {
             Iterator<RG_LayoutDetailEntity> iter = details.iterator();
             while (iter.hasNext()) {
                 RG_LayoutDetailEntity detail = iter.next();
+
+                //XY
+                RG_AdjustDeviceEntity device = new RG_AdjustDeviceEntity();
 
                 //Yang 20170808 用设备的名称取代设备的ID，避免出现布局名称和设备id不一致问题
                 if (detail.getItem().equals(arr.getItem())) {

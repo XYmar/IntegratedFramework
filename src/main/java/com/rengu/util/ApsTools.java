@@ -93,6 +93,21 @@ public class ApsTools {
         return result;
     }
 
+    //重启订单
+    public static String ResumeOrderHandlingURL() {
+        String result = "/NCL:RUN?Program=./Model/Interaction/Rescheduling/Order/ResumeOrder.n" +
+                "&" +
+                "BUFFER=1\\n2\\n" + "null" + "\\n001\\n2000-01-01\\t06:00:00\\n120\\n2014-05-23\\t09:40:00" +
+                "&" +
+                "REPLY=" + ApsTools.instance().getResultReplyAddress() +
+                "&" +
+                "ID=" + Tools.getUUID() +
+                "&" +
+                "DELAY=100";
+        System.out.println("APS链接地址：" + result);
+        return result;
+    }
+
     //获取工序调整
     public static String getAdjustProcessHandlingURL(RG_AdjustProcessEntity entity) {
         ApsTools.isRunning = true;
@@ -184,9 +199,7 @@ public class ApsTools {
                 RG_ProcessEntity processEntity = session.get(RG_ProcessEntity.class, tempMap.get("IDPROCESS").toString());
                 if (processEntity != null) {
                     rg_planEntity.setProcessByIdProcess(processEntity);
-
                     RG_ProcessEntity parentProcess = processEntity.getProcessByIdProcess();
-
                     if (parentProcess != null) {
                         rg_planEntity.setProductByIdProduct(parentProcess.getProductByIdProduct());
                     }

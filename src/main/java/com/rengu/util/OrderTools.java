@@ -19,8 +19,12 @@ public class OrderTools {
                     Map tempMap = (HashMap) object;
                     RG_OrderEntity rg_orderEntity = session.get(RG_OrderEntity.class, tempMap.get("ID").toString());
                     if (rg_orderEntity != null) {
-                        rg_orderEntity.setT1Plan(Tools.dateFormater(tempMap.get("T1PLAN").toString(), "yyyy-MM-dd HH:mm:ss"));
-                        rg_orderEntity.setT2Plan(Tools.dateFormater(tempMap.get("T2PLAN").toString(), "yyyy-MM-dd HH:mm:ss"));
+                        if (tempMap.get("T1PLAN") != null) {
+                            rg_orderEntity.setT1Plan(Tools.dateFormater(tempMap.get("T1PLAN").toString(), "yyyy-MM-dd HH:mm:ss"));
+                        }
+                        if (tempMap.get("T2PLAN") != null) {
+                            rg_orderEntity.setT1Plan(Tools.dateFormater(tempMap.get("T2PLAN").toString(), "yyyy-MM-dd HH:mm:ss"));
+                        }
                         session.saveOrUpdate(rg_orderEntity);
                     }
                 }

@@ -13,7 +13,7 @@ public class RG_ResourceStateEntity {
     private String resourceName;                //设备名称
     private String manufacturer;                //设备厂商
     private String idTask;                      //当前任务号
-    private short idProcess;                    //工序号
+    private String idProcess;                    //工序号
     private String idClub;                      //客户名称
     private String idProduct;                   //零件编号
     private String productName;                 //零件名称
@@ -26,7 +26,6 @@ public class RG_ResourceStateEntity {
     private float bootstrapTime;                //开机时间比
     private float awaitTime;                    //待机时间比
     private float processTime;                  //加工时间比
-
     private RG_ResourceEntity resourceEntity;   //资源
 
     public String getId() {
@@ -69,11 +68,11 @@ public class RG_ResourceStateEntity {
         this.idTask = idTask;
     }
 
-    public short getIdProcess() {
+    public String getIdProcess() {
         return idProcess;
     }
 
-    public void setIdProcess(short idProcess) {
+    public void setIdProcess(String idProcess) {
         this.idProcess = idProcess;
     }
 

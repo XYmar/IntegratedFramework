@@ -32,6 +32,9 @@
         <property name="capacity">
             <column name="capacity" sql-type="smallint(6)" not-null="false"/>
         </property>
+        <property name="mesId">
+            <column name="mesId" sql-type="varchar(100)" length="100" not-null="false"/>
+        </property>
         <set name="resources" inverse="true" cascade="save-update" table="site_resource">
             <key column="site_id"></key>
             <many-to-many class="com.rengu.entity.RG_ResourceEntity"

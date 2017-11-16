@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.rengu.entity.ApsProcessTyperesourceSite1Entity" table="aps_process_typeresource_site1"
+           schema="testdatabase">
+        <id name="id" column="id"/>
+        <property name="idProcess" column="idProcess"/>
+        <property name="idTypeResource" column="IdTypeResource"/>
+        <property name="primaryForTime" column="primaryForTime"/>
+        <property name="primaryForNext" column="primaryForNext"/>
+        <property name="typeSite" column="TypeSite"/>
+        <property name="idSite" column="IdSite"/>
+        <property name="siteInGroupResource" column="siteInGroupResource"/>
+        <property name="weightParallel" column="weightParallel"/>
+        <property name="weightSequence" column="weightSequence"/>
+        <property name="minResource" column="minResource"/>
+        <property name="maxResource" column="maxResource"/>
+        <property name="modResource" column="modResource"/>
+        <property name="grp" column="grp"/>
+        <property name="ord" column="ord"/>
+    </class>
+</hibernate-mapping>

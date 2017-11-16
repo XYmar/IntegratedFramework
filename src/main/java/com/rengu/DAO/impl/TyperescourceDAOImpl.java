@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +16,11 @@ import java.util.List;
 public class TyperescourceDAOImpl extends SuperDAOImpl implements TyperescourceDAO<RG_TyperescourceEntity> {
     @Override
     public List<RG_TyperescourceEntity> findAll() {
+
+        /*List tableList = new ArrayList();
+        tableList.add("APS_TYPERESOURCE");
+        SyncAPSTable(tableList,"ORACLE","APS_TYPERESOURCE");*/
+
         MySessionFactory.getSessionFactory().getCurrentSession().close();
         Session session = MySessionFactory.getSessionFactory().getCurrentSession();
         Transaction transaction = session.getTransaction();

@@ -264,6 +264,7 @@
                             <td><span class="spanVal">{{snapShotData.schedule.orders.length}}</span></td>
                         </tr>
                         <tr>
+                            <td style="display:none">{{snapShotData.schedule.layout.id}}</td>
                             <td><span class="spanKey">优化次数</span></td>
                             <td><span class="spanVal">{{interactiveCount}}</span></td>
                             <td><span class="spanKey">是否下发MES</span></td>
@@ -275,8 +276,12 @@
                             <td><span class="spanKey" ng-if="hasDispatchMes">下发MES时间</span></td>
                             <td><span class="spanVal" ng-if="hasDispatchMes">{{dispatchMesTime  | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                             </td>
-                            <td></td>
-                            <td></td>
+                            <td><span class="spanKey" ng-if="detail">当前布局</span></td>
+                            <td>
+                                <button type="button" class="btn btn-block btn-sm btn-info" data-toggle="modal"
+                                        data-target="#modal-detail" ng-click="Detail($event)" ng-if="detail">详情
+                                </button>
+                            </td>
                         </tr>
 
                     </table>
@@ -542,14 +547,54 @@
                                     <th>利用率</th>
                                 </tr>
                                 <tr ng-repeat="rate in rateList" ng-init="renderTable($last)">
-                                    <td>{{rate.IDRESOURCE}}</td>
-                                    <td>{{rate.RATE}}</td>
+                                    <td>{{rate.idResource}}</td>
+                                    <td>{{rate.rate}}</td>
 
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--详情窗口-->
+        <div class="modal fade" id="modal-detail">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="reset()">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">布局详细信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive mailbox-messages">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+                                <tr>
+                                    <th>资源名称</th>
+                                    <th>位置</th>
+                                    <th>状态</th>
+                                    <th>是否存在</th>
+                                </tr>
+                                <tr ng-repeat="layoutDetail in layoutDetailList track by $index" ng-init="renderTable($last)">
+                                    <td>{{layoutDetail.item}}</td>
+                                    <td>({{layoutDetail.pos}})</td>
+                                    <td>
+                                        <span class="label label-success" ng-if="layoutDetail.state == 'running'">运行</span>
+                                        <span class="label label-danger" ng-if="layoutDetail.state == 'maintainning'">维修</span>
+                                    </td>
+                                    <td>
+                                        <span class="label label-primary" ng-if="layoutDetail.exist == 'true'">存在</span>
+                                        <span class="label label-danger" ng-if="layoutDetail.exist == 'false'">不存在</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

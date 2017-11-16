@@ -28,7 +28,7 @@
         <column name="planFinishTime" sql-type="datetime" not-null="false"/>
         </property>
         <property name="actualDispatchDevice">
-            <column name="actualDispatchDevice" sql-type="varchar(50)" length="50" not-null="false"/>
+            <column name="actualDispatchDevice" sql-type="varchar(255)" length="255" not-null="false"/>
         </property>
         <property name="actualDispatchTime" type="java.util.Date">
             <column name="actualDispatchTime" sql-type="datetime" not-null="false"/>

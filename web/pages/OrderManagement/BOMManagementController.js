@@ -165,6 +165,37 @@ angular.module("IntegratedFramework.BOMManagementController", ['ngRoute'])
 
         });
 
+        $("#select0").change(function () {
+
+            var model;
+            var val = $(this).children('option:selected').val();
+
+            if (val.length > 0) {
+                if(val == "简化模型"){
+                    model = 1;
+                }else if(val == "细化模型"){
+                    model = 2;
+                }
+
+                var params = {};
+                params.model = model;
+                var modelNum = JSON.stringify(params);
+
+                layer.load();
+
+
+                myHttpService.post(serviceList.switchModel, modelNum).then(function successCallback() {
+                    hideLoadingPage();
+                    notification.sendNotification("confirm", "切换成功！");
+                }, function errorCallback() {
+                    notification.sendNotification("alert", "切换失败");
+                });
+            } else {
+                $scope.$apply();
+            }
+
+        });
+
 
         function loadTree() {
             var setting = {

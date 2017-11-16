@@ -5,8 +5,10 @@ package com.rengu.entity;
  */
 public class RG_ResourceRateEntity {
     private String id;
-    private RG_SnapshotNodeEntity idSnapshot;
-    private RG_ResourceEntity idResource;
+    private String idSnapshot;
+    private String idResource;
+    /*private RG_SnapshotNodeEntity idSnapshot;
+    private RG_ResourceEntity idResource;*/
     private double rate;
 
     public String getId() {
@@ -17,19 +19,19 @@ public class RG_ResourceRateEntity {
         this.id = id;
     }
 
-    public RG_SnapshotNodeEntity getIdSnapshot() {
+    public String getIdSnapshot() {
         return idSnapshot;
     }
 
-    public void setIdSnapshot(RG_SnapshotNodeEntity idSnapshot) {
+    public void setIdSnapshot(String idSnapshot) {
         this.idSnapshot = idSnapshot;
     }
 
-    public RG_ResourceEntity getIdResource() {
+    public String getIdResource() {
         return idResource;
     }
 
-    public void setIdResource(RG_ResourceEntity idResource) {
+    public void setIdResource(String idResource) {
         this.idResource = idResource;
     }
 

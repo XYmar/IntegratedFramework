@@ -22,7 +22,7 @@
             <column name="idTask" sql-type="varchar(50)" length="50" not-null="false"/>
         </property>
         <property name="idProcess">
-            <column name="idProcess" sql-type="smallint(4)" not-null="false"/>
+            <column name="idProcess" sql-type="varchar(60)" not-null="false"/>
         </property>
         <property name="idClub">
             <column name="idClub" sql-type="varchar(50)" length="50" not-null="false"/>

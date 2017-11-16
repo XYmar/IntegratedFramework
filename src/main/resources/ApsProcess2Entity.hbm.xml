@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.rengu.entity.ApsProcess2Entity" table="aps_process2" schema="testdatabase">
+        <id name="id" column="id"/>
+        <property name="name" column="name"/>
+        <property name="nameEn" column="name_en"/>
+        <property name="idPrec" column="IdPrec"/>
+        <property name="idSucc" column="IdSucc"/>
+        <property name="idNextResource" column="IdNextResource"/>
+        <property name="idTypeResourceNext" column="IdTypeResourceNext"/>
+        <property name="idParent" column="idParent"/>
+        <property name="idRoot" column="idRoot"/>
+        <property name="idProduct" column="idProduct"/>
+        <property name="ordToParent" column="ordToParent"/>
+        <property name="ordToRoot" column="ordToRoot"/>
+        <property name="ordToRootChild" column="OrdToRootChild"/>
+        <property name="idExclusive" column="IdExclusive"/>
+        <property name="minTimeSucc" column="minTimeSucc"/>
+        <property name="maxTimeSucc" column="maxTimeSucc"/>
+        <property name="slot1" column="Slot1"/>
+        <property name="slot2" column="Slot2"/>
+        <property name="typeShift" column="typeShift"/>
+        <property name="initTime" column="initTime"/>
+        <property name="unitQuantity" column="unitQuantity"/>
+        <property name="unitTime" column="unitTime"/>
+        <property name="postTime" column="postTime"/>
+        <property name="checkTime" column="checkTime"/>
+        <property name="delta" column="delta"/>
+        <property name="estimate" column="estimate"/>
+        <property name="continuous" column="continuous"/>
+        <property name="supply" column="supply"/>
+        <property name="quantity" column="quantity"/>
+        <property name="idPrecSwitch" column="IdPrecSwitch"/>
+        <property name="modQtySwitch" column="modQtySwitch"/>
+        <property name="minQtySwitch" column="minQtySwitch"/>
+        <property name="maxQtySwitch" column="maxQtySwitch"/>
+        <property name="modResourceDivision" column="modResourceDivision"/>
+        <property name="minResourceDivision" column="minResourceDivision"/>
+        <property name="maxResourceDivision" column="maxResourceDivision"/>
+        <property name="modQtyDivision" column="modQtyDivision"/>
+        <property name="minQtyDivision" column="minQtyDivision"/>
+        <property name="maxQtyDivision" column="maxQtyDivision"/>
+        <property name="modTimeDivision" column="modTimeDivision"/>
+        <property name="minTimeDivision" column="minTimeDivision"/>
+        <property name="maxTimeDivision" column="maxTimeDivision"/>
+        <property name="batch" column="batch"/>
+        <property name="modQtyBatch" column="modQtyBatch"/>
+        <property name="minQtyBatch" column="minQtyBatch"/>
+        <property name="maxQtyBatch" column="maxQtyBatch"/>
+        <property name="modTimeBatch" column="modTimeBatch"/>
+        <property name="minTimeBatch" column="minTimeBatch"/>
+        <property name="maxTimeBatch" column="maxTimeBatch"/>
+        <property name="idCoupled" column="IdCoupled"/>
+        <property name="idCoupledTypeShift" column="IdCoupledTypeShift"/>
+        <property name="idCoupledShift" column="IdCoupledShift"/>
+        <property name="idCoupledGroupResource" column="IdCoupledGroupResource"/>
+        <property name="idCoupledTypeResource" column="IdCoupledTypeResource"/>
+        <property name="idCoupledResource" column="IdCoupledResource"/>
+        <property name="idCoupledTypeSite" column="IdCoupledTypeSite"/>
+        <property name="idCoupledSite" column="IdCoupledSite"/>
+        <property name="preemptive" column="preemptive"/>
+        <property name="exclusiveJob" column="exclusiveJob"/>
+        <property name="exclusiveOrder" column="exclusiveOrder"/>
+        <property name="coupledTypeOrder" column="coupledTypeOrder"/>
+        <property name="idIcon" column="idIcon"/>
+        <property name="nbTask" column="nbTask"/>
+        <property name="color" column="color"/>
+        <property name="apsSwitch" column="apsSwitch"/>
+    </class>
+</hibernate-mapping>

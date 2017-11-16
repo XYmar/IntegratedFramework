@@ -17,7 +17,7 @@ import java.util.List;
 public class AssisantprocessAction extends SuperAction {
 
     public void getAllAssisantProcess() throws Exception {
-        AssisantprocessDAOImpl assisantprocessDAO = DAOFactory.getAssisantprocessDAOInstance();
+        //AssisantprocessDAOImpl assisantprocessDAO = DAOFactory.getAssisantprocessDAOInstance();
         //List list = assisantprocessDAO.findAll();
 
         //查询APS数据的语句

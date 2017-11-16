@@ -5,6 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!--<property name="connection.url"><![CDATA[jdbc:mysql://localhost:3306/TestDatabase?useUnicode=true&serverTimezone=GMT%2b8&characterEncoding=UTF-8]]></property>-->
         <property name="connection.url">jdbc:mysql://localhost:3306/TestDatabase?useUnicode=true&amp;serverTimezone=GMT%2b8&amp;characterEncoding=UTF-8</property>
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
@@ -52,6 +53,8 @@
         <mapping resource="RG_PlanEntity.hbm.xml"/>
         <mapping resource="RG_SnapshotNodeEntity.hbm.xml"/>
 
+        <mapping resource="RG_ResourceRateEntity.hbm.xml"/>
+
         <!--告警中心-->
         <mapping resource="RG_WarnEntity.hbm.xml"/>
 
@@ -88,6 +91,21 @@
         <mapping resource="RG_EventLogEntity.hbm.xml"/>
 
         <mapping resource="RG_TaskEntity.hbm.xml"/>
+        <mapping resource="RG_MesMessageLog.hbm.xml"/>
 
+        <mapping resource="RG_DegreeAccuracyInfo.hbm.xml"/>
+        <mapping resource="RG_ElectricityInfo.hbm.xml"/>
+        <mapping resource="RG_ManMachineInfo.hbm.xml"/>
+        <mapping resource="RG_ModelTestInfo.hbm.xml"/>
+
+        <!-- APS -->
+        <mapping resource="ApsProcess1Entity.hbm.xml"/>
+        <mapping resource="ApsProcess2Entity.hbm.xml"/>
+        <mapping resource="ApsProcessTyperesourceSite1Entity.hbm.xml"/>
+        <mapping resource="ApsProcessTyperesourceSite2Entity.hbm.xml"/>
+        <mapping resource="ApsResource1Entity.hbm.xml"/>
+        <mapping resource="ApsResource2Entity.hbm.xml"/>
+        <mapping resource="ApsTyperesource1Entity.hbm.xml"/>
+        <mapping resource="ApsTyperesource2Entity.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

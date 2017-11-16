@@ -33,6 +33,17 @@ public class FullCalendarAction extends SuperAction {
             fullCalendarEvent.setAllDay(true);
             if (!tempRG_OrderEntity.getName().isEmpty()) {
                 fullCalendarEvent.setTitle(tempRG_OrderEntity.getName());
+
+                Date t2 = tempRG_OrderEntity.getT2();
+                Date t2plan = tempRG_OrderEntity.getT2Plan();
+
+                if((t2 != null) && (t2plan != null)){
+                    if((t2plan.getTime() - t2.getTime()) > 0){
+                        //TODO 添加订单拖期的判断
+                        fullCalendarEvent.setColor("red");
+                    }
+                }
+
             } else {
                 continue;
             }
@@ -49,6 +60,7 @@ public class FullCalendarAction extends SuperAction {
             } else {
                 continue;
             }
+
             fullCalendarEventList.add(fullCalendarEvent);
         }
         String jsonString = Tools.entityConvertToJsonString(fullCalendarEventList);
