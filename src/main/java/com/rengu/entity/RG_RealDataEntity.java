@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 public class RG_RealDataEntity {
-    private int id;
+    private String id;
     private String idResource;
     private String state;
     private String good;
@@ -14,11 +14,11 @@ public class RG_RealDataEntity {
     private String value;
     private String idTask;                  //20170825 新增
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

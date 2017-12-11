@@ -6,8 +6,7 @@
 
     <class name="com.rengu.entity.RG_OrderStateEntity" table="RG_OrderState" schema="testdatabase">
         <id name="id">
-            <column name="id" sql-type="int"/>
-            <generator class="identity"/>
+            <column name="id" sql-type="varchar(255)" length="255"/>
         </id>
         <property name="idTask">
             <column name="idTask" sql-type="varchar(255)" not-null="false"/>
