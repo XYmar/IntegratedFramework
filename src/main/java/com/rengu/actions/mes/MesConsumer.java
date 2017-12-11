@@ -319,8 +319,12 @@ public class MesConsumer extends Thread {
 //                    agvInfo.setSite(subDataNode.get("site").asText());
 
                     String mesSign = "agv";
-
-                    String idOrder = dataNode.get("idOrder").asText();
+                    String idOrder = "";
+                    if (dataNode.get("idOrder").equals("")) {
+                        idOrder = "";
+                    } else {
+                        idOrder = dataNode.get("idOrder").asText();
+                    }
 
                     Boolean stateMes = dataNode.get("state").asBoolean();
 
