@@ -110,7 +110,7 @@
                         <td style="display:none">{{carry.id}}</td>
                         <td>{{carry.agvId}}</td>
                         <td>{{carry.idOrder}}</td>
-                        <td>{{carry.reportTime}}</td>
+                        <td>{{carry.reportTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                         <td>{{carry.jobDesc}}</td>
                         <td>
                             <span class="label label-danger" ng-if="carry.state == 0">不正常</span>
@@ -164,7 +164,7 @@
                         <td style="display:none">{{assemblyCarry.id}}</td>
                         <td>{{assemblyCarry.carryId}}</td>
                         <td>{{assemblyCarry.idOrder}}</td>
-                        <td>{{assemblyCarry.reportTime}}</td>
+                        <td>{{assemblyCarry.reportTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                         <td>{{assemblyCarry.jobDesc}}</td>
                         <td>
                             <span class="label label-danger" ng-if="assemblyCarry.state == 0">不正常</span>
@@ -218,7 +218,7 @@
                         <td style="display:none">{{assemblyCenter.id}}</td>
                         <td>{{assemblyCenter.carryId}}</td>
                         <td>{{assemblyCenter.idOrder}}</td>
-                        <td>{{assemblyCenter.reportTime}}</td>
+                        <td>{{assemblyCenter.reportTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
                         <td>{{assemblyCenter.jobDesc}}</td>
                         <td>
                             <span class="label label-danger" ng-if="assemblyCenter.state == 0">不正常</span>

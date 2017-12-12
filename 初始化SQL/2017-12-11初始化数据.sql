@@ -440,34 +440,6 @@ CREATE TABLE `rg_agvinfo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `rg_assemblycarryinfo`
--- ----------------------------
-DROP TABLE IF EXISTS `rg_assemblycarryinfo`;
-CREATE TABLE `rg_assemblycarryinfo` (
-  `id` varchar(255) NOT NULL,
-  `carryId` varchar(255) DEFAULT NULL,
-  `state` tinyint(1) DEFAULT NULL,
-  `jobDesc` varchar(255) DEFAULT NULL,
-  `idOrder` varchar(255) DEFAULT NULL,
-  `reportTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Table structure for `rg_assemblycenterinfo`
--- ----------------------------
-DROP TABLE IF EXISTS `rg_assemblycenterinfo`;
-CREATE TABLE `rg_assemblycenterinfo` (
-  `id` varchar(255) NOT NULL,
-  `carryId` varchar(255) DEFAULT NULL,
-  `state` tinyint(1) DEFAULT NULL,
-  `jobDesc` varchar(255) DEFAULT NULL,
-  `idOrder` varchar(255) DEFAULT NULL,
-  `reportTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
 --  Table structure for `rg_assisantprocess`
 -- ----------------------------
 DROP TABLE IF EXISTS `rg_assisantprocess`;
@@ -487,20 +459,6 @@ CREATE TABLE `rg_assisantprocess` (
   PRIMARY KEY (`id`),
   KEY `FKi8w7p5bxt8wwejxbilrqkfdjs` (`idProcess`),
   CONSTRAINT `FKi8w7p5bxt8wwejxbilrqkfdjs` FOREIGN KEY (`idProcess`) REFERENCES `rg_process` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Table structure for `rg_carryinfo`
--- ----------------------------
-DROP TABLE IF EXISTS `rg_carryinfo`;
-CREATE TABLE `rg_carryinfo` (
-  `id` varchar(255) NOT NULL,
-  `agvId` varchar(255) DEFAULT NULL,
-  `state` tinyint(1) DEFAULT NULL,
-  `jobDesc` varchar(255) DEFAULT NULL,
-  `idOrder` varchar(255) DEFAULT NULL,
-  `reportTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

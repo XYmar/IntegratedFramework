@@ -23,6 +23,10 @@
           <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.8.0" />
           <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.13.0" />
           <element id="library" level="project" name="Maven: org.apache.activemq:activemq-all:5.14.5" />
+          <element id="library" level="project" name="Struts 2-2.3.20.1" />
+          <element id="library" level="project" name="Hibernate 5.2.9-5.2.9" />
+          <element id="library" level="project" name="Spring-4.3.8.RELEASE" />
+          <element id="library" level="project" name="ojdbc8" />
         </element>
       </element>
       <element id="directory" name="META-INF">
