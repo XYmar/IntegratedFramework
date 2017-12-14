@@ -29,6 +29,7 @@ angular.module("IntegratedFramework", [
     .config(['$routeProvider', function ($routeProvider, $locationProvider) {
         //     // $locationProvider.hashPrefix('!');
         $routeProvider.otherwise("/MainPage");
+        /*$routeProvider.otherwise("/Signin");*/
     }])
     .config(['$httpProvider', function ($httpProvider) {
         /*$httpProvider.defaults.headers.put['Content-Type'] = 'application/x-www-form-urlencoded';

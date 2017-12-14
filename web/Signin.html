@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- bootstrap -->
+    <link href="DetailCss/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="DetailCss/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="DetailCss/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="DetailCss/layout.css" />
+    <link rel="stylesheet" type="text/css" href="DetailCss/elements.css" />
+    <link rel="stylesheet" type="text/css" href="DetailCss/icons.css" />
+
+    <!-- libraries -->
+    <link rel="stylesheet" type="text/css" href="DetailCss/lib/font-awesome.css" />
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="DetailCss/compiled/signin.css" type="text/css" media="screen" />
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<!-- background switcher -->
+<!--<div class="bg-switch visible-desktop">
+    <div class="bgs">
+        <a href="#" data-img="landscape.jpg" class="bg active">
+            <img src="img/bgs/landscape.jpg" />
+        </a>
+        <a href="#" data-img="blueish.jpg" class="bg">
+            <img src="img/bgs/blueish.jpg" />
+        </a>
+        <a href="#" data-img="7.jpg" class="bg">
+            <img src="img/bgs/7.jpg" />
+        </a>
+        <a href="#" data-img="8.jpg" class="bg">
+            <img src="img/bgs/8.jpg" />
+        </a>
+
+        <a href="#" data-img="9.jpg" class="bg">
+            <img src="img/bgs/9.jpg" />
+        </a>
+
+        <a href="#" data-img="10.jpg" class="bg">
+            <img src="img/bgs/10.jpg" />
+        </a>
+        <a href="#" data-img="11.jpg" class="bg">
+            <img src="img/bgs/11.jpg" />
+        </a>
+    </div>
+</div>-->
+
+
+<div class="row-fluid login-wrapper">
+    <a href="MainPage.html">
+        <img class="logo" src="images/logo.png" />
+    </a>
+
+    <div class="span4 box">
+        <div class="content-wrap">
+            <h6>Log in</h6>
+            <input class="span12" type="text" value="admin"  readonly="readonly"/>
+            <input class="span12" type="password" value="admin" readonly="readonly" />
+            <a href="#" class="forgot">Forgot password?</a>
+            <div class="remember">
+                <input id="remember-me" type="checkbox" />
+                <label for="remember-me">Remember me</label>
+            </div>
+            <br/>
+            <a class="btn-glow primary login" href="MainPage.html">Log in</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- scripts -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<!--<script src="js/bootstrap.min.js"></script>-->
+<script src="3rdLib/bootstrap/css/bootstrap.min.css"></script>
+<script src="3rdLib/bootstrap/js/theme.js"></script>
+<!--<script src="js/theme.js"></script>-->
+
+<!-- pre load bg imgs -->
+<script type="text/javascript">
+    $(function () {
+        // bg switcher
+        /*var $btns = $(".bg-switch .bg");
+        $btns.click(function (e) {
+            e.preventDefault();
+            $btns.removeClass("active");
+            $(this).addClass("active");
+            var bg = $(this).data("img");
+
+            $("html").css("background-image", "url('img/bgs/" + bg + "')");
+        });*/
+
+        $("html").css("background-image", "url('img/bgs/9.jpg')");
+    });
+</script>
+</body>
+</html>
