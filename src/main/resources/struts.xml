@@ -15,7 +15,8 @@
         <!--设置默认的action，当前包中的action均不满足时，使用此action作为默认跳转的压面-->
         <default-action-ref name="index"/>
         <action name="index" class="com.rengu.actions.DefaultAction">
-            <result>MainPage.html</result>
+            <!--<result>MainPage.html</result>-->
+            <result>Signin.html</result>
         </action>
     </package>
 
