@@ -37,6 +37,8 @@ public class RG_ResourceEntity {
     private String idIcon;
     private String idSite0;
     private String unit;
+    private Byte classify;            //资源分类  0：生产；1：运输
+    private Byte isDeleted;           //是否删除  0：删除；1：未删除
 
     private String assisantResource;            //是否需要载具，在人机协作平台和智能装配平台上此字段有意义
 
@@ -44,6 +46,7 @@ public class RG_ResourceEntity {
     private String idTypeResource;   //资源类型
 
     private RG_ClubEntity clubByIdClub;
+
     private RG_UserEntity userByIdUser;
     @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "GroupresourceId")
     private RG_GroupresourceEntity groupresourceByIdGroupResource;
@@ -54,6 +57,23 @@ public class RG_ResourceEntity {
     private Set<RG_ScheduleEntity> schedules;
     @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "ResourceStateId")
     private Set<RG_ResourceStateEntity> resourceState = new HashSet<RG_ResourceStateEntity>();
+
+
+    public Byte getClassify() {
+        return classify;
+    }
+
+    public void setClassify(Byte classify) {
+        this.classify = classify;
+    }
+
+    public Byte getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Byte isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 
     public String getMesSign() {
         return mesSign;

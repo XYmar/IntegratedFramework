@@ -69,6 +69,12 @@
         <property name="state">
             <column name="state" sql-type="tinyint(4)" not-null="false"/>
         </property>
+        <property name="classify">
+            <column name="classify" sql-type="tinyint(4)" not-null="false"/>
+        </property>
+        <property name="isDeleted">
+            <column name="isDeleted" sql-type="tinyint(4)" not-null="false"/>
+        </property>
         <property name="sizeIcon">
             <column name="sizeIcon" sql-type="tinyint(4)" not-null="false"/>
         </property>

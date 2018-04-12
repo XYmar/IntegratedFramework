@@ -33,6 +33,7 @@
         <element id="file-copy" path="$PROJECT_DIR$/target/IntegratedFramework-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="IntegratedFramework/web/Web" />
+      <element id="dir-copy" path="$PROJECT_DIR$/web" />
     </root>
   </artifact>
 </component>
