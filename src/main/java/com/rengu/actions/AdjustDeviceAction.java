@@ -5,16 +5,15 @@ import com.rengu.DAO.impl.AdjustDeviceDAOImpl;
 import com.rengu.entity.RG_AdjustDeviceEntity;
 import com.rengu.entity.RG_OrderEntity;
 import com.rengu.entity.RG_ResourceEntity;
-import com.rengu.util.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.rengu.util.ApsTools;
+import com.rengu.util.DAOFactory;
+import com.rengu.util.MySessionFactory;
+import com.rengu.util.Tools;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wey580231 on 2017/6/19.
@@ -28,11 +27,11 @@ public class AdjustDeviceAction extends SuperAction {
         Tools.jsonPrint(jsonString, httpServletResponse);
     }
 
-    public static void saveAdjustDevice(Session session, String orderId, String mesSign, Boolean stateMes) throws Exception{
+    public static void saveAdjustDevice(Session session, String orderId, String mesSign, Boolean stateMes) throws Exception {
 
-        List<RG_ResourceEntity> resourceList = (List<RG_ResourceEntity>)session.createQuery("select resource from RG_ResourceEntity resource where resource.mesSign =:mesSign").setParameter("mesSign",mesSign).uniqueResult();
+        List<RG_ResourceEntity> resourceList = (List<RG_ResourceEntity>) session.createQuery("select resource from RG_ResourceEntity resource where resource.mesSign =:mesSign").setParameter("mesSign", mesSign).list();
 
-        for(RG_ResourceEntity resource : resourceList){
+        for (RG_ResourceEntity resource : resourceList) {
 
             RG_AdjustDeviceEntity adjustDeviceEntity = new RG_AdjustDeviceEntity();
 
@@ -41,13 +40,13 @@ public class AdjustDeviceAction extends SuperAction {
             Boolean flag = false;
 
 
-            if(state==0){
+            if (state == 0) {
                 flag = false;
-            }else {
+            } else {
                 flag = true;
             }
 
-            if(flag != stateMes){
+            if (flag != stateMes) {
                 adjustDeviceEntity.setId(Tools.getUUID());
                 adjustDeviceEntity.setOrderId(orderId);
                 adjustDeviceEntity.setResoureId(resourceId);
@@ -77,37 +76,34 @@ public class AdjustDeviceAction extends SuperAction {
         }
 
         //找到此id对应的设备资源的idResource
-        RG_AdjustDeviceEntity adjustDeviceEntity = (RG_AdjustDeviceEntity)session.createQuery("select adjustDevice from RG_AdjustDeviceEntity adjustDevice where id =:id").setParameter("id",id).uniqueResult();
+        RG_AdjustDeviceEntity adjustDeviceEntity = (RG_AdjustDeviceEntity) session.createQuery("select adjustDevice from RG_AdjustDeviceEntity adjustDevice where id =:id").setParameter("id", id).uniqueResult();
         //String idResource = (String)session.createQuery("select resoureId from RG_AdjustDeviceEntity adjustDevice where id =:id").setParameter("id",id).uniqueResult();
         String idResource = adjustDeviceEntity.getResoureId();
 
         //从资源表找到对应的资源
-        RG_ResourceEntity resourceEntity = (RG_ResourceEntity)session.createQuery("select resource from RG_ResourceEntity resource where id =:id").setParameter("id",idResource).uniqueResult();
+        RG_ResourceEntity resourceEntity = (RG_ResourceEntity) session.createQuery("select resource from RG_ResourceEntity resource where id =:id").setParameter("id", idResource).uniqueResult();
 
         //此资源的类型
         String idTypeResource = resourceEntity.getIdTypeResource();
 
         //找到此类型的资源的集合
-        List<RG_ResourceEntity> resourceEntityList = (List<RG_ResourceEntity>)session.createQuery("select resource from RG_ResourceEntity resource where resource.idTypeResource =:idTypeResource").setParameter("idTypeResource",idTypeResource).list();
+        List<RG_ResourceEntity> resourceEntityList = (List<RG_ResourceEntity>) session.createQuery("select resource from RG_ResourceEntity resource where resource.idTypeResource =:idTypeResource").setParameter("idTypeResource", idTypeResource).list();
 
         //判断资源是否单个
-        if(resourceEntityList.size() == 1){  //单个
+        if (resourceEntityList.size() == 1) {  //单个
             ApsTools.instance().executeCommand(ApsTools.instance().getCancelDeviceURL(adjustDeviceEntity));
 
-        }else if(resourceEntityList.size() > 1){  //不是单个
+        } else if (resourceEntityList.size() > 1) {  //不是单个
             ApsTools.instance().executeCommand(ApsTools.instance().getCancelDeviceURL(adjustDeviceEntity));
 
             //判断是否有候选订单，state=0
-            List<RG_OrderEntity> orderEntityList = (List<RG_OrderEntity>)session.createQuery("select order from RG_OrderEntity order where order.state =:state").setParameter("state",0).list();
+            List<RG_OrderEntity> orderEntityList = (List<RG_OrderEntity>) session.createQuery("select order from RG_OrderEntity order where order.state =:state").setParameter("state", 0).list();
 
-            if(orderEntityList.size() > 0){
+            if (orderEntityList.size() > 0) {
                 ApsTools.instance().getInterAdjust();
             }
 
         }
-
-
-
 
 
         //查找所有资源
@@ -155,12 +151,12 @@ public class AdjustDeviceAction extends SuperAction {
         }
 
         //找到此id对应的设备资源的idResource
-        RG_AdjustDeviceEntity adjustDeviceEntity = (RG_AdjustDeviceEntity)session.createQuery("select adjustDevice from RG_AdjustDeviceEntity adjustDevice where id =:id").setParameter("id",id).uniqueResult();
+        RG_AdjustDeviceEntity adjustDeviceEntity = (RG_AdjustDeviceEntity) session.createQuery("select adjustDevice from RG_AdjustDeviceEntity adjustDevice where id =:id").setParameter("id", id).uniqueResult();
         //String idResource = (String)session.createQuery("select resoureId from RG_AdjustDeviceEntity adjustDevice where id =:id").setParameter("id",id).uniqueResult();
         String idResource = adjustDeviceEntity.getResoureId();
 
         //从资源表找到对应的资源
-        RG_ResourceEntity resourceEntity = (RG_ResourceEntity)session.createQuery("select resource from RG_ResourceEntity resource where id =:id").setParameter("id",idResource).uniqueResult();
+        RG_ResourceEntity resourceEntity = (RG_ResourceEntity) session.createQuery("select resource from RG_ResourceEntity resource where id =:id").setParameter("id", idResource).uniqueResult();
 
         //将资源表该资源State更新为1
         Byte b = 1;
@@ -170,9 +166,9 @@ public class AdjustDeviceAction extends SuperAction {
         ApsTools.instance().executeCommand(ApsTools.ResumeOrderHandlingURL());
 
         //判断是否有候选订单，如果有候选订单，再调reusumeScheduling
-        List<RG_OrderEntity> orderEntityList = (List<RG_OrderEntity>)session.createQuery("select order from RG_OrderEntity order where order.state =:state").setParameter("state",0).list();
+        List<RG_OrderEntity> orderEntityList = (List<RG_OrderEntity>) session.createQuery("select order from RG_OrderEntity order where order.state =:state").setParameter("state", 0).list();
 
-        if(orderEntityList.size() > 0){
+        if (orderEntityList.size() > 0) {
             ApsTools.instance().getInterAdjust();
         }
 

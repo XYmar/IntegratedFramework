@@ -34,10 +34,17 @@ public class OrdersAction extends SuperAction {
     }
 
     public void findByState() throws Exception {
+        OrdersDAOImpl ordersDAO = DAOFactory.getOrdersDAOInstance();
         String jsonString = Tools.getHttpRequestBody(httpServletRequest);
         JsonNode jsonNode = Tools.jsonTreeModelParse(jsonString);
         String orderState = jsonNode.get("state").toString();
-        OrdersDAOImpl ordersDAO = DAOFactory.getOrdersDAOInstance();
+        // 已下发状态特殊处理
+        if (orderState.equals("1")) {
+            List<RG_OrderEntity> rg_orderEntityList = ordersDAO.findByIsSendToMES(true);
+            String resultString = Tools.entityConvertToJsonString(rg_orderEntityList);
+            Tools.jsonPrint(resultString, this.httpServletResponse);
+            return;
+        }
         List<RG_OrderEntity> rg_orderEntityList = ordersDAO.findByState(Byte.parseByte(orderState));
         String resultString = Tools.entityConvertToJsonString(rg_orderEntityList);
         Tools.jsonPrint(resultString, this.httpServletResponse);

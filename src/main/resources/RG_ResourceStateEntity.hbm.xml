@@ -6,8 +6,7 @@
 
     <class name="com.rengu.entity.RG_ResourceStateEntity" table="RG_ResourceState" schema="testdatabase">
         <id name="id">
-            <column name="id" sql-type="int"/>
-            <generator class="identity"/>
+            <column name="id" sql-type="varchar(255)" length="255"/>
         </id>
         <property name="idResource">
             <column name="idResource" sql-type="varchar(255)" not-null="false"/>
