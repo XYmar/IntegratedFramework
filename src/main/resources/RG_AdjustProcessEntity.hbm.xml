@@ -15,13 +15,13 @@
             <column name="processTime" sql-type="datetime" not-null="false"/>
         </property>
         <property name="idTask">
-            <column name="idTask" sql-type="varchar(60)" length="60" not-null="false"/>
+            <column name="idTask" sql-type="varchar(255)" length="60" not-null="false"/>
         </property>
         <property name="idJob">
-            <column name="idJob" sql-type="varchar(60)" length="60" not-null="false"/>
+            <column name="idJob" sql-type="varchar(255)" length="60" not-null="false"/>
         </property>
         <property name="idOrder">
-            <column name="idOrder" sql-type="varchar(50)" length="50" not-null="false"/>
+            <column name="idOrder" sql-type="varchar(255)" length="50" not-null="false"/>
         </property>
         <property name="originalResource">
             <column name="originalResource" sql-type="varchar(100)" length="100" not-null="false"/>
@@ -36,7 +36,7 @@
             <column name="appointStartTime" sql-type="datetime" not-null="false"/>
         </property>
         <property name="origin">
-            <column name="origin" sql-type="varchar(50)" length="50" not-null="false"/>
+            <column name="origin" sql-type="varchar(255)" length="50" not-null="false"/>
         </property>
         <property name="state" type="integer">
             <column name="state" sql-type="int" not-null="false"/>

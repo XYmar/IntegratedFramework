@@ -2,23 +2,24 @@ package com.rengu.entity;
 
 import java.util.Date;
 
-/**仓库搬运机器人信息
+/**
+ * 仓库搬运机器人信息
  * Created by wey580231 on 2017/7/6.
  */
 public class RG_Mes_CarryInfo {
 
-    private int id;
+    private String id;
     private String agvId;                       //搬运机器人编号
     private boolean state;                      //正常、不正常
     private String jobDesc;                     //正在执行搬运工作
     private String idOrder;                     //订单编号
     private Date reportTime;                    //上报时间
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -60,31 +61,5 @@ public class RG_Mes_CarryInfo {
 
     public void setReportTime(Date reportTime) {
         this.reportTime = reportTime;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        RG_Mes_CarryInfo that = (RG_Mes_CarryInfo) o;
-
-        if (id != that.id) return false;
-        if (state != that.state) return false;
-        if (agvId != null ? !agvId.equals(that.agvId) : that.agvId != null) return false;
-        if (jobDesc != null ? !jobDesc.equals(that.jobDesc) : that.jobDesc != null) return false;
-        if (idOrder != null ? !idOrder.equals(that.idOrder) : that.idOrder != null) return false;
-        return reportTime != null ? reportTime.equals(that.reportTime) : that.reportTime == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (agvId != null ? agvId.hashCode() : 0);
-        result = 31 * result + (state ? 1 : 0);
-        result = 31 * result + (jobDesc != null ? jobDesc.hashCode() : 0);
-        result = 31 * result + (idOrder != null ? idOrder.hashCode() : 0);
-        result = 31 * result + (reportTime != null ? reportTime.hashCode() : 0);
-        return result;
     }
 }

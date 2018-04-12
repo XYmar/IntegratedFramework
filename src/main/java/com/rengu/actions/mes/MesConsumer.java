@@ -48,33 +48,6 @@ public class MesConsumer extends Thread {
         }
     }
 
-//    private void parseMessage(String message, int a) {
-//        JsonNode jsonNode = null;
-//        try {
-//            jsonNode = Tools.jsonTreeModelParse(message);
-//            String mesType = jsonNode.get("FC").asText();                //功能编码
-//            String UUID = jsonNode.get("UUID").asText();                 //接收消息UUID，用于在回复时加入
-//            JsonNode dataNode = jsonNode.get("DATA");
-//            System.out.println("消息类型：" + mesType + "，接受到消息+:" + message);
-//            Session session = MySessionFactory.getSessionFactory().openSession();
-//            session.beginTransaction();
-//            //产品表
-//            if (mesType.equals(MessTable.MES_PRODUCT)) {
-//                RG_ProductEntity rg_productEntity = session.get(RG_ProductEntity.class, dataNode.get("id").asText());
-//                if (rg_productEntity == null) {
-//                    rg_productEntity = new RG_ProductEntity();
-//                }
-//                rg_productEntity.setId(dataNode.get("id").asText());
-//                rg_productEntity.setName(dataNode.get("name").asText());
-//                rg_productEntity.setStock((short) dataNode.get("stock").asInt());
-//                rg_productEntity.setUnit(dataNode.get("unit").asText());
-//                rg_productEntity.setModel(dataNode.get("model").asText());
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     //信息解析
     private void parseMessage(String message) {
         try {
@@ -240,7 +213,7 @@ public class MesConsumer extends Thread {
 
                     Boolean stateMes = dataNode.get("state").asBoolean();
 
-                    AdjustDeviceAction.saveAdjustDevice(session,idOrder,mesSign,stateMes);
+                    AdjustDeviceAction.saveAdjustDevice(session, idOrder, mesSign, stateMes);
 
                     session.save(rg_degreeAccuracyInfo);
                 }
@@ -260,7 +233,7 @@ public class MesConsumer extends Thread {
 
                     Boolean stateMes = dataNode.get("state").asBoolean();
 
-                    AdjustDeviceAction.saveAdjustDevice(session,idOrder,mesSign,stateMes);
+                    AdjustDeviceAction.saveAdjustDevice(session, idOrder, mesSign, stateMes);
 
                     /*RG_ResourceEntity resource = (RG_ResourceEntity)session.createQuery("select resource from RG_ResourceEntity resource where resource.mesSign =:mesSign").setParameter("mesSign",mesSign).uniqueResult();
                     String idResource = resource.getIdR();
@@ -297,7 +270,7 @@ public class MesConsumer extends Thread {
 
                     Boolean stateMes = dataNode.get("state").asBoolean();
 
-                    AdjustDeviceAction.saveAdjustDevice(session,idOrder,mesSign,stateMes);
+                    AdjustDeviceAction.saveAdjustDevice(session, idOrder, mesSign, stateMes);
 
                     session.save(rg_manMachineInfo);
                 }
@@ -317,13 +290,14 @@ public class MesConsumer extends Thread {
 
                     Boolean stateMes = dataNode.get("state").asBoolean();
 
-                    AdjustDeviceAction.saveAdjustDevice(session,idOrder,mesSign,stateMes);
+                    AdjustDeviceAction.saveAdjustDevice(session, idOrder, mesSign, stateMes);
 
                     session.save(rg_modelTestInfo);
                 }
                 //仓库搬运机器人信息
                 else if (type.equals(MessTable.MES_CARRY_INFO)) {
                     RG_Mes_CarryInfo carryInfo = new RG_Mes_CarryInfo();
+                    carryInfo.setId(Tools.getUUID());
                     carryInfo.setAgvId(dataNode.get("id").asText());
                     carryInfo.setState(Boolean.parseBoolean(dataNode.get("state").asText()));
                     carryInfo.setJobDesc(dataNode.get("jobDesc").asText());
@@ -334,9 +308,8 @@ public class MesConsumer extends Thread {
                 //【已调】AGV信息
                 else if (type.equals(MessTable.MES_AGV_INFO)) {
                     JsonNode subDataNode = dataNode.get("data");
-
                     RG_Mes_AgvInfo agvInfo = new RG_Mes_AgvInfo();
-
+                    agvInfo.setId(Tools.getUUID());
                     agvInfo.setAgvId(subDataNode.get("id").asText());
                     agvInfo.setState(subDataNode.get("state").asBoolean());
                     agvInfo.setGoodsDesc(subDataNode.get("jobDesc").asText());
@@ -346,19 +319,23 @@ public class MesConsumer extends Thread {
 //                    agvInfo.setSite(subDataNode.get("site").asText());
 
                     String mesSign = "agv";
-
-                    String idOrder = dataNode.get("idOrder").asText();
+                    String idOrder = "";
+                    if (dataNode.get("idOrder").equals("")) {
+                        idOrder = "";
+                    } else {
+                        idOrder = dataNode.get("idOrder").asText();
+                    }
 
                     Boolean stateMes = dataNode.get("state").asBoolean();
 
-                    AdjustDeviceAction.saveAdjustDevice(session,idOrder,mesSign,stateMes);
+                    AdjustDeviceAction.saveAdjustDevice(session, idOrder, mesSign, stateMes);
 
                     session.save(agvInfo);
                 }
                 //【已调】装配线搬运机器人信息
                 else if (type.equals(MessTable.MES_ASSEMBLYCARRY_INFO)) {
                     RG_Mes_AssemblyCarryInfo carryInfo = new RG_Mes_AssemblyCarryInfo();
-
+                    carryInfo.setId(Tools.getUUID());
                     carryInfo.setCarryId(dataNode.get("id").asText());
                     carryInfo.setState(Boolean.parseBoolean(dataNode.get("state").asText()));
                     carryInfo.setJobDesc(dataNode.get("jobDesc").asText());
@@ -373,14 +350,14 @@ public class MesConsumer extends Thread {
 
                     Boolean stateMes = dataNode.get("state").asBoolean();
 
-                    AdjustDeviceAction.saveAdjustDevice(session,idOrder,mesSign,stateMes);
+                    AdjustDeviceAction.saveAdjustDevice(session, idOrder, mesSign, stateMes);
 
                     session.save(carryInfo);
                 }
                 //【已调】智能装配中心信息
                 else if (type.equals(MessTable.MES_ASSEMBLYCENTER_INFO)) {
                     RG_Mes_AssemblyCenterInfo centerInfo = new RG_Mes_AssemblyCenterInfo();
-
+                    centerInfo.setId(Tools.getUUID());
                     centerInfo.setCarryId(dataNode.get("id").asText());
                     centerInfo.setState(Boolean.parseBoolean(dataNode.get("state").asText()));
                     centerInfo.setJobDesc(dataNode.get("jobDesc").asText());
@@ -393,7 +370,7 @@ public class MesConsumer extends Thread {
 
                     Boolean stateMes = dataNode.get("state").asBoolean();
 
-                    AdjustDeviceAction.saveAdjustDevice(session,idOrder,mesSign,stateMes);
+                    AdjustDeviceAction.saveAdjustDevice(session, idOrder, mesSign, stateMes);
 
                     session.save(centerInfo);
                 }
@@ -506,6 +483,7 @@ public class MesConsumer extends Thread {
             //【已调】工序指令信息
             else if (mesType.equals(MessTable.MES_INSTRUCT_INFO)) {
                 RG_RealDataEntity data = new RG_RealDataEntity();
+                data.setId(Tools.getUUID());
 //                data.setIdResource(dataNode.get("idResource").asText());
                 data.setState(dataNode.get("state").asText());
                 data.setGood(dataNode.get("good").asText());

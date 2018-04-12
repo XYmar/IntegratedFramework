@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by hanchangming on 2017/5/31.
@@ -95,6 +96,8 @@ public class ShiftAction extends SuperAction implements ModelDriven<RG_ShiftEnti
             String sql = "UPDATE " + DatabaseInfo.APS_RESOURCE + " SET IDSHIFT = '{\"" + rg_shiftEntity.getId() + "\"}'";
             Tools.executeSQLForUpdate(DatabaseInfo.ORACLE, DatabaseInfo.APS, EntityConvertToSQL.insertSQLForAPS(rg_shiftEntity));
             Tools.executeSQLForUpdate(DatabaseInfo.ORACLE, DatabaseInfo.APS, sql);
+            // 调用aps计算
+            ApsTools.instance().startAPSSchedule(UUID.randomUUID().toString());
         }
     }
 }

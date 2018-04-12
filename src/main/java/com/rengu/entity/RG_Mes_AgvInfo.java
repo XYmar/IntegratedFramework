@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by wey580231 on 2017/7/6.
  */
 public class RG_Mes_AgvInfo {
-    private int id;
+    private String id;
     private String agvId;                           //agv编号
     private boolean state;                          //状态
     private String goodsDesc;                       //物料描述
@@ -15,11 +15,11 @@ public class RG_Mes_AgvInfo {
     private Date reportTime;                        //上报时间
     private String site;                            //当前地点编码，对应site表中的字段
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -197,7 +197,7 @@ public class SnapshotDao {
                     //货物名
                     result.setGoods(entity.getGoods());
 
-                    String site = getSite(session, entity, entity.getSite(), plan.getT1Task());
+                    String site = getSite(session, entity, entity.getSite(), plan.getT1Task(), plan.getSnapShort().getId());
                     result.setSite(site);
 
                     Date startDate = sdf.parse(plan.getT1Task());
@@ -339,9 +339,9 @@ public class SnapshotDao {
                     continue;
                 }
 
-                String startSite = getSite(session, startProcessAssisantEntity, startSiteEntity.getId(), robotPlan.get(i).getT1Task());
+                String startSite = getSite(session, startProcessAssisantEntity, startSiteEntity.getId(), robotPlan.get(i).getT1Task(), robotPlan.get(i).getSnapShort().getId());
 
-                String endSite = getSite(session, endProcessAssisantEntity, endSiteEntity.getId(), robotPlan.get(i + 1).getT1Task());
+                String endSite = getSite(session, endProcessAssisantEntity, endSiteEntity.getId(), robotPlan.get(i + 1).getT1Task(), robotPlan.get(i + 1).getSnapShort().getId());
 
                 if (!startSite.equals(endSite)) {
                     Date startDate = sdf.parse(robotPlan.get(i).getT2Task());
@@ -405,11 +405,12 @@ public class SnapshotDao {
         }
     }
 
-    private String getSite(Session session, RG_ProcessAssisantEntity entity, String processAssisantSite, String t1Task) {
+    private String getSite(Session session, RG_ProcessAssisantEntity entity, String processAssisantSite, String t1Task, String snapshotId) {
         String site = "";
         if (entity.getSiteRource() != null) {
-            NativeQuery planQuery = session.createNativeQuery("select * from rg_plan where t1Task = ?", RG_PlanEntity.class);
+            NativeQuery planQuery = session.createNativeQuery("select * from rg_plan where t1Task = ? AND rg_plan.idSnapshort = ?", RG_PlanEntity.class);
             planQuery.setParameter(1, t1Task);
+            planQuery.setParameter(2, snapshotId);
             List<RG_PlanEntity> planList = planQuery.list();
             if (planList.size() > 0) {
                 Iterator<RG_PlanEntity> planIter = planList.iterator();
