@@ -123,6 +123,7 @@ angular.module("IntegratedFramework", [
         <!--资源信息-->
         service.ListResource = backUrl + "resource/getAllResource.action";
         service.DeleteResource = backUrl + "resource/delete.action";
+        service.DeleteResource2 = backUrl + "resource/deleteRes.action";
         service.UpdateResource = backUrl + "resource/update.action";
         service.AddResource = backUrl + "resource/save.action";
         service.GetResourceById = backUrl + "resource/findAllById.action";

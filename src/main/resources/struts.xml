@@ -50,6 +50,7 @@
         <action name="getAllResource" class="com.rengu.actions.ResourceAction" method="getAllResource"/>
         <action name="save" class="com.rengu.actions.ResourceAction" method="save"/>
         <action name="delete" class="com.rengu.actions.ResourceAction" method="delete"/>
+        <action name="deleteRes" class="com.rengu.actions.ResourceAction" method="updateRes"/>
         <action name="update" class="com.rengu.actions.ResourceAction" method="update"/>
         <action name="findAll" class="com.rengu.actions.ResourceAction" method="findAll"/>
         <action name="findAllById" class="com.rengu.actions.ResourceAction" method="findAllById"/>
