@@ -44,8 +44,8 @@
                         <!-- Custom Tabs -->
                         <div class="nav-tabs-custom">
                             <ul id="myUl" class="nav nav-tabs">
-                                <li class="active"><a href="/AdjustOrder/#tab_1" data-toggle="tab">紧急插单分析</a></li>
-                                <li><a href="/AdjustOrder/#tab_2" data-toggle="tab">交期承诺分析</a></li>
+                                <li class="active"><a href="/AdjustOrder/#tab_1" data-toggle="tab" ng-click="jinji()">紧急插单分析</a></li>
+                                <li><a href="/AdjustOrder/#tab_2" data-toggle="tab" ng-click="jiaoqi()">交期承诺分析</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
@@ -83,7 +83,7 @@
                                                 <td>
                                                     <span ng-if="x.state == 1">
                                                         <button type="button" class="btn btn-block btn-sm btn-info"
-                                                                      ng-click="exceptionHandling($event)">处理
+                                                                ng-click="exceptionHandling($event)">处理
                                                         </button>
 
                                                     </span>
@@ -135,28 +135,28 @@
                                                 <th>处理时间</th>
                                                 <th>操作</th>
                                             </tr>
-                                            <tr ng-repeat="x in adjustOrder" ng-init="renderTable($last)">
-                                                <td style="display:none">{{x.id}}</td>
-                                                <td>{{x.ord.name}}</td>
-                                                <td>{{x.origin}}</td>
-                                                <td>{{x.ord.priority}}</td>
-                                                <td>{{x.ord.quantity}}</td>
+                                            <tr ng-repeat="y in adjustOrder" ng-init="renderTable($last)">
+                                                <td style="display:none">{{y.id}}</td>
+                                                <td>{{y.ord.name}}</td>
+                                                <td>{{y.origin}}</td>
+                                                <td>{{y.ord.priority}}</td>
+                                                <td>{{y.ord.quantity}}</td>
                                                 <td>
-                                                    <span class="label label-danger" ng-if="x.state == 1">异常未处理</span>
-                                                    <span class="label label-primary" ng-if="x.state == 2">aps处理中</span>
+                                                    <span class="label label-danger" ng-if="y.state == 1">异常未处理</span>
+                                                    <span class="label label-primary" ng-if="y.state == 2">aps处理中</span>
                                                     <span class="label label-success"
-                                                          ng-if="x.state == 3">aps处理完成</span>
-                                                    <span class="label label-success" ng-if="x.state == 4">调整完成</span>
-                                                    <span class="label label-warning" ng-if="x.state == 5">处理完成</span>
-                                                    <span class="label label-danger" ng-if="x.state == 6">应急失败</span>
+                                                          ng-if="y.state == 3">aps处理完成</span>
+                                                    <span class="label label-success" ng-if="y.state == 4">调整完成</span>
+                                                    <span class="label label-warning" ng-if="y.state == 5">处理完成</span>
+                                                    <span class="label label-danger" ng-if="y.state == 6">应急失败</span>
                                                 </td>
                                                 <td>
-                                                    <span ng-if="x.processTime ==null">--</span>
-                                                    <span ng-if="x.processTime !=null">{{x.processTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                                                    <span ng-if="y.processTime ==null">--</span>
+                                                    <span ng-if="y.processTime !=null">{{x.processTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                                                 </td>
 
                                                 <td>
-                                                    <span ng-if="x.state == 1">
+                                                    <span ng-if="y.state == 1">
                                                     <button type="button" class="btn btn-block btn-sm btn-info"
                                                             ng-click="exceptionHandling($event)">处理
                                                     </button>
