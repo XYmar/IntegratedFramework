@@ -191,6 +191,8 @@
                 method="creatProcessException"/>
         <action name="creatDeviceException" class="com.rengu.actions.AdjustDeviceAction"
                 method="creatDeviceException"/>
+        <action name="creatFactoryException" class="com.rengu.actions.AdjustFactoryAction"
+                method="creatFactoryException"/>
     </package>
 
     <!--高级调整分析-->

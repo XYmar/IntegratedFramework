@@ -32,7 +32,7 @@ angular.module("IntegratedFramework.AdjustDeviceController", ['ngRoute'])
 
         //异常模拟
         $scope.addAdjustDevice = function () {
-            alert("haha");
+            //alert("haha");
 
             myHttpService.post(serviceList.AddAdjustDevice).then(function successCallback() {
                 myHttpService.get(serviceList.getAllAdjustDeviceException).then(function (response) {
