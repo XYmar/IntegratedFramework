@@ -593,6 +593,84 @@ angular.module("IntegratedFramework.EquipmentMonitoringController", ['ngRoute'])
                     useUTC: false
                 }
             });
+            function activeLastPointToolip(chart) {
+                var points = chart.series[0].points;
+                chart.tooltip.refresh(points[points.length -1]);
+            }
+            $('#dynamicChart').highcharts({
+                chart: {
+                    type: 'spline',
+                    animation: Highcharts.svg, // don't animate in old IE
+                    marginRight: 10,
+                    events: {
+                        load: function () {
+                            // set up the updating of the chart each second
+                            var series = this.series[0],
+                                chart = this;
+                            setInterval(function () {
+                                var x = (new Date()).getTime(), // current time
+                                    y = Math.random() * 100;
+                                series.addPoint([x, y], true, true);
+                                activeLastPointToolip(chart)
+                            }, 1000);
+                        }
+                    }
+                },
+                title: {
+                    text: '动态模拟实时数据'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150
+                },
+                yAxis: {
+                    title: {
+                        text: '电量'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                            Highcharts.numberFormat(this.y, 2);
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                series: [{
+                    name: '随机数据',
+                    data: (function () {
+                        // generate an array of random data
+                        var data = [],
+                            time = (new Date()).getTime(),
+                            i;
+                        for (i = -19; i <= 0; i += 1) {
+                            data.push({
+                                x: time + i * 1000,
+                                y: Math.random() * 100
+                            });
+                        }
+                        return data;
+                    }())
+                }]
+            }, function(c) {
+                activeLastPointToolip(c)
+            });
+
+            /*Highcharts.setOptions({
+                global: {
+                    useUTC: false
+                }
+            });
 
             function activeLastPointToolip(chart) {
                 var points = chart.series[0].points;
@@ -610,13 +688,13 @@ angular.module("IntegratedFramework.EquipmentMonitoringController", ['ngRoute'])
                             var series = this.series[0],
                                 chart = this;
                             setInterval(function () {
-                                /*if(dynamicData.length <= 0){
+                                /!*if(dynamicData.length <= 0){
                                     x = (new Date()).getTime();
                                     y = Math.random();
                                 }else{
                                     x = (new Date()).getTime();
                                     y = dynamicData[dynamicData.length - 1].remainPower;
-                                }*/
+                                }*!/
 
                                 var x = (new Date()).getTime(),
                                 y = Math.random();
@@ -664,7 +742,7 @@ angular.module("IntegratedFramework.EquipmentMonitoringController", ['ngRoute'])
                     data: (function () {
                         // generate an array of random data
                         var data = [];
-                        /*if(dynamicData.length <= 0){
+                        /!*if(dynamicData.length <= 0){
                             var time = (new Date()).getTime(),
                                 i;
                             data.push({
@@ -681,7 +759,7 @@ angular.module("IntegratedFramework.EquipmentMonitoringController", ['ngRoute'])
                                     });
                                 }
                             );
-                        }*/
+                        }*!/
                         var time = (new Date()).getTime(),
                             i;
                         for(i = 10; i <= 40; i += 1){
@@ -696,7 +774,7 @@ angular.module("IntegratedFramework.EquipmentMonitoringController", ['ngRoute'])
                 }]
             }, function (c) {
                 activeLastPointToolip(c)
-            });
+            });*/
         });
 
         var deport2 = function(){
@@ -706,6 +784,84 @@ angular.module("IntegratedFramework.EquipmentMonitoringController", ['ngRoute'])
                     hideLoadingPage();
 
                     Highcharts.setOptions({
+                        global: {
+                            useUTC: false
+                        }
+                    });
+                    function activeLastPointToolip(chart) {
+                        var points = chart.series[0].points;
+                        chart.tooltip.refresh(points[points.length -1]);
+                    }
+                    $('#dynamicChart').highcharts({
+                        chart: {
+                            type: 'spline',
+                            animation: Highcharts.svg, // don't animate in old IE
+                            marginRight: 10,
+                            events: {
+                                load: function () {
+                                    // set up the updating of the chart each second
+                                    var series = this.series[0],
+                                        chart = this;
+                                    setInterval(function () {
+                                        var x = (new Date()).getTime(), // current time
+                                            y = Math.random() * 100;
+                                        series.addPoint([x, y], true, true);
+                                        activeLastPointToolip(chart)
+                                    }, 1000);
+                                }
+                            }
+                        },
+                        title: {
+                            text: '动态模拟实时数据'
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            tickPixelInterval: 150
+                        },
+                        yAxis: {
+                            title: {
+                                text: '电量'
+                            },
+                            plotLines: [{
+                                value: 0,
+                                width: 1,
+                                color: '#808080'
+                            }]
+                        },
+                        tooltip: {
+                            formatter: function () {
+                                return '<b>' + this.series.name + '</b><br/>' +
+                                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                    Highcharts.numberFormat(this.y, 2);
+                            }
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        exporting: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: '随机数据',
+                            data: (function () {
+                                // generate an array of random data
+                                var data = [],
+                                    time = (new Date()).getTime(),
+                                    i;
+                                for (i = -19; i <= 0; i += 1) {
+                                    data.push({
+                                        x: time + i * 1000,
+                                        y: Math.random() * 100
+                                    });
+                                }
+                                return data;
+                            }())
+                        }]
+                    }, function(c) {
+                        activeLastPointToolip(c)
+                    });
+
+                   /* Highcharts.setOptions({
                         global: {
                             useUTC: false
                         }
@@ -727,7 +883,7 @@ angular.module("IntegratedFramework.EquipmentMonitoringController", ['ngRoute'])
                                     var series = this.series[0],
                                         chart = this;
                                     setInterval(function () {
-                                        /*if(dynamicData.length <= 0){
+                                        /!*if(dynamicData.length <= 0){
                                             var m = (new Date()).getTime(),
                                                 n = 100;
 
@@ -737,7 +893,7 @@ angular.module("IntegratedFramework.EquipmentMonitoringController", ['ngRoute'])
                                             y = dynamicData[dynamicData.length - 1].remainPower;
 
                                             series.addPoint([x, y]);
-                                        }*/
+                                        }*!/
 
                                         var x = (new Date()).getTime(),
                                             y = dynamicData[dynamicData.length - 1].remainPower;
@@ -814,12 +970,10 @@ angular.module("IntegratedFramework.EquipmentMonitoringController", ['ngRoute'])
                         }]
                     }, function (c) {
                         activeLastPointToolip(c)
-                    });
+                    });*/
 
-                    deport2();
+                    /*deport2();*/
                 });
-
-                //deport();
 
             },50000)
         };
