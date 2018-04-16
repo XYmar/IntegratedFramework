@@ -2,18 +2,13 @@ package com.rengu.actions;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.rengu.DAO.impl.AdjustDeviceDAOImpl;
-import com.rengu.entity.RG_AdjustDeviceEntity;
-import com.rengu.entity.RG_OrderEntity;
-import com.rengu.entity.RG_ResourceEntity;
-import com.rengu.util.ApsTools;
-import com.rengu.util.DAOFactory;
-import com.rengu.util.MySessionFactory;
-import com.rengu.util.Tools;
+import com.rengu.entity.*;
+import com.rengu.util.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by wey580231 on 2017/6/19.
@@ -25,6 +20,57 @@ public class AdjustDeviceAction extends SuperAction {
         List<RG_AdjustDeviceEntity> adjustDeviceEntityList = adjustProcessDAO.findAll();
         String jsonString = Tools.entityConvertToJsonString(adjustDeviceEntityList);
         Tools.jsonPrint(jsonString, httpServletResponse);
+    }
+
+    public void creatDeviceException() throws Exception {
+        Session session = MySessionFactory.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        List idOrders = session.createQuery("select id from RG_OrderEntity order").list();
+
+        String mesSigns[] = {"agv","elec","degree","manMachine","model","assemblyCarry","assemblyCenter"};
+       // Boolean stateMess[] = {true,false};
+
+        Random random = new Random();//创建随机对象
+        int arrIdx = random.nextInt(mesSigns.length-1);//随机数组索引，nextInt(len-1)表示随机整数[0,(len-1)]之间的值
+        int listIdx = random.nextInt(idOrders.size()-1);
+        //int stateIdx = random.nextInt(stateMess.length-1);
+
+        String idOrder = (String)idOrders.get(listIdx);
+        String mesSign = mesSigns[arrIdx];
+
+       // Boolean stateMes = stateMess[stateIdx];
+
+        AdjustDeviceAction.saveAdjustDeviceMoni(session, idOrder, mesSign);
+
+    }
+
+    public static void saveAdjustDeviceMoni(Session session, String orderId, String mesSign) throws Exception {
+
+        List<RG_ResourceEntity> resourceList = (List<RG_ResourceEntity>) session.createQuery("select resource from RG_ResourceEntity resource where resource.mesSign =:mesSign").setParameter("mesSign", mesSign).list();
+
+        for (RG_ResourceEntity resource : resourceList) {
+
+            RG_AdjustDeviceEntity adjustDeviceEntity = new RG_AdjustDeviceEntity();
+
+            String resourceId = resource.getIdR();
+
+            adjustDeviceEntity.setId(Tools.getUUID());
+            adjustDeviceEntity.setOrderId(orderId);
+            adjustDeviceEntity.setResoureId(resourceId);
+            adjustDeviceEntity.setReportTime(new Date());
+            adjustDeviceEntity.setOrigin("MES");
+
+            session.save(adjustDeviceEntity);
+
+            session.getTransaction().commit();
+
+        }
+
+
+        session.close();
+
+
     }
 
     public static void saveAdjustDevice(Session session, String orderId, String mesSign, Boolean stateMes) throws Exception {

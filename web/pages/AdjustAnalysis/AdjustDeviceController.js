@@ -30,6 +30,21 @@ angular.module("IntegratedFramework.AdjustDeviceController", ['ngRoute'])
         };
 
 
+        //异常模拟
+        $scope.addAdjustDevice = function () {
+            alert("haha");
+
+            myHttpService.post(serviceList.AddAdjustDevice).then(function successCallback() {
+                myHttpService.get(serviceList.getAllAdjustDeviceException).then(function (response) {
+                    $scope.adjustDeviceList = response.data;
+                    notification.sendNotification("confirm", "添加成功");
+                })
+            }, function errorCallback() {
+                notification.sendNotification("alert", "请求失败");
+            })
+
+        };
+
         //异常处理
         $scope.HandleResource = function (event) {
             layer.confirm('是否处理当前异常?', {
