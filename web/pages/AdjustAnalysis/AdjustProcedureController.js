@@ -122,10 +122,10 @@ angular.module("IntegratedFramework.AdjustProcedureController", ['ngRoute'])
             }
         };
 
-        //异常状态
+        //异常模拟
         $scope.addAdjustProcess = function () {
-            if (processAddValidate()) {
-                $("#modal-simulate").modal('hide');
+            /*if (processAddValidate()) {
+                $("#modal-simulate").modal('hide');*/
                 myHttpService.post(serviceList.AddAdjustProcess, addData).then(function successCallback() {
                     myHttpService.get(serviceList.AdjustProcess).then(function (response) {
                         $scope.arr = response.data;
@@ -134,9 +134,9 @@ angular.module("IntegratedFramework.AdjustProcedureController", ['ngRoute'])
                 }, function errorCallback() {
                     notification.sendNotification("alert", "请求失败");
                 })
-            } else {
+           /* } else {
                 notification.sendNotification("alert", "输入有误");
-            }
+            }*/
         };
 
         //异常处理

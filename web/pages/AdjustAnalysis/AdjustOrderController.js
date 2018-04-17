@@ -16,19 +16,49 @@ angular.module("IntegratedFramework.AdjustOrderController", ['ngRoute'])
         $(function () {
             var adjustOrderByType = {};
             adjustOrderByType.adjustOrderType = "紧急插单分析";
+
             var jsonString = JSON.stringify(adjustOrderByType);
             myHttpService.post(serviceList.getALLAdjustOrderByType, jsonString).then(function (response) {
                 $scope.adjustOrder = response.data;
                 hideLoadingPage();
             });
+
         });
+
+        //紧急插单分析
+        /*$scope.jinji = function () {
+            var adjustOrderByType = {};
+            adjustOrderByType.adjustOrderType = "紧急插单分析";
+
+            var jsonString = JSON.stringify(adjustOrderByType);
+            myHttpService.post(serviceList.getALLAdjustOrderByType, jsonString).then(function (response) {
+                $scope.adjustOrder = response.data;
+                hideLoadingPage();
+            });
+        };
+
+        //交期承诺分析
+        $scope.jiaoqi = function () {
+            var adjustOrderByType2 = {};
+            adjustOrderByType2.adjustOrderType2 = "交期承诺分析";
+            var jsonString2 = JSON.stringify(adjustOrderByType2);
+
+            myHttpService.post(serviceList.getALLAdjustOrderByType, jsonString2).then(function (response) {
+                $scope.adjustOrder2 = response.data;
+                hideLoadingPage();
+            });
+        };*/
+
         //根据Tab页来进行切换请求。
         $('#myUl').find('a').click(function (e) {
             layer.load(0);
             var adjustOrderByType = {};
             adjustOrderByType.adjustOrderType = $(this).text();
+
             var jsonString = JSON.stringify(adjustOrderByType);
+            console.log(jsonString);
             myHttpService.post(serviceList.getALLAdjustOrderByType, jsonString).then(function (response) {
+                $scope.adjustOrder = [];
                 $scope.adjustOrder = response.data;
                 hideLoadingPage();
             });

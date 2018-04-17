@@ -314,7 +314,20 @@ public class State3DAO {
                 }
             }
             flag = true;
+
+            RG_AdjustLayoutEntity rg_adjustLayoutEntity = new RG_AdjustLayoutEntity();
+
+            rg_adjustLayoutEntity.setId(Tools.getUUID());
+            rg_adjustLayoutEntity.setName(layoutName);
+            rg_adjustLayoutEntity.setReportTime(new Date());
+            rg_adjustLayoutEntity.setOrigin("3d车间");
+            rg_adjustLayoutEntity.setState(1);
+
+            session.save(rg_adjustLayoutEntity);
         }
+
+
+
         session.getTransaction().commit();
         session.close();
         return flag;

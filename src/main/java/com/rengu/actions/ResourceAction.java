@@ -22,11 +22,29 @@ import java.util.Set;
  */
 public class ResourceAction extends SuperAction {
 
-    public void getAllResource() throws Exception {
+    /*public void getAllResource() throws Exception {
         ResourceDAO resourceDAO = DAOFactory.getResourceInstance();
         List list = resourceDAO.findAll();
         String jsonString = Tools.entityConvertToJsonString(list);
         Tools.jsonPrint(jsonString, this.httpServletResponse);
+    }*/
+
+    public void getAllResource() throws Exception {
+
+        Session session = MySessionFactory.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        transaction.begin();
+
+        List<RG_ResourceEntity> rg_resourceEntityList = session.createQuery("select resource from RG_ResourceEntity resource where resource.isDeleted  <> 0").list();
+
+        //List<RG_ResourceEntity> list = (List<RG_ResourceEntity>)session.createNativeQuery("select * from rg_resource where isDeleted <> ?").setParameter(1,0).list();
+
+        session.getTransaction().commit();
+
+
+        String jsonString = Tools.entityConvertToJsonString(rg_resourceEntityList);
+        Tools.jsonPrint(jsonString, this.httpServletResponse);
+        session.close();
     }
 
     /*public void save() throws Exception {
@@ -74,14 +92,44 @@ public class ResourceAction extends SuperAction {
 
     public void delete() throws Exception {
         String jsonString = Tools.getHttpRequestBody(httpServletRequest);
-        RG_ResourceEntity rg_resourceEntity = new RG_ResourceEntity();
+       /* RG_ResourceEntity rg_resourceEntity = new RG_ResourceEntity();
         rg_resourceEntity.setIdR(Tools.jsonTreeModelParse(jsonString).get("id").asText());
-        ResourceDAOImpl resourceDAOInstance = DAOFactory.getResourceInstance();
-        if (resourceDAOInstance.delete(rg_resourceEntity)) {
+        ResourceDAOImpl resourceDAOInstance = DAOFactory.getResourceInstance();*/
+        /*if (resourceDAOInstance.delete(rg_resourceEntity)) {
         } else {
             WebSocketNotification.broadcast(Tools.creatNotificationMessage("Resource删除失败", "alert"));
-        }
+        }*/
+
+        Session session = MySessionFactory.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        transaction.begin();
+
+        String id = Tools.jsonTreeModelParse(jsonString).get("idR").asText();
+
+        session.createNativeQuery("update rg_resource set isDeleted = ? where id = ?").setParameter(1,0).setParameter(2,id).executeUpdate();
+
+        /*NativeQuery query = session.createNativeQuery("update rg_userconfig set apsCurrSnapshotId = ? where idUser = ?");
+        query.setParameter(1, id);
+        query.setParameter(2, "1");
+        query.executeUpdate();
+*/
+        session.getTransaction().commit();
+        session.close();
     }
+
+    /*public void updateRes() throws Exception {
+        String jsonString = Tools.getHttpRequestBody(httpServletRequest);
+        *//*ResourceDAOImpl resourceDAO = DAOFactory.getResourceInstance();
+        RG_ResourceEntity rg_resourceEntity = resourceDAO.findAllById(Tools.jsonTreeModelParse(jsonString).get("idR").asText());*//*
+        RG_ResourceEntity rg_resourceEntity = Tools.jsonConvertToEntity(jsonString, RG_ResourceEntity.class);
+        ResourceDAOImpl resourceDAOInstance = DAOFactory.getResourceInstance();
+        if (resourceDAOInstance.update(rg_resourceEntity)) {
+            WebSocketNotification.broadcast(Tools.creatNotificationMessage("删除成功", "confirm"));
+
+        } else {
+            WebSocketNotification.broadcast(Tools.creatNotificationMessage("删除失败", "alert"));
+        }
+    }*/
 
     public void update() throws Exception {
         Session session = MySessionFactory.getSessionFactory().openSession();

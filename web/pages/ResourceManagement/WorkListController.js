@@ -202,8 +202,11 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
                 var slot2 = document.getElementById("modal-add-slot2-timepicker").value;
 
                 var opt = document.createElement("option");
-                opt.value = "{" + slot1 + ".." + slot2 + "}";
-                opt.innerHTML = "{" + slot1 + ".." + slot2 + "}";
+                /*opt.value = "{" + slot1 + ".." + slot2 + "}";
+                opt.innerHTML = "{" + slot1 + ".." + slot2 + "}";*/
+
+                opt.value = slot1 + ".." + slot2;
+                opt.innerHTML = slot1 + ".." + slot2;
 
                 document.getElementById("addWorkList").appendChild(opt);
             }else {
@@ -249,14 +252,29 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
             var workList = document.getElementById("addWorkList");
             var workStr = [];
             for (var i = 0; i < workList.length; i++) {
-                workStr[i] = workList[i].text;
+                workStr.push(workList[i].text);
+                /*if(i = 0){
+                    workStr[0] = "{" + workList[i].text;
+                }else if(i = workList.length -  1){
+                    workStr[i] += workList[i].text + "}";
+                }else {
+                    workStr[i] += workList[i].text;
+                }*/
+
             }
 
             var form = document.getElementById("addWorkList");
             var elements = {};
             elements.name = document.getElementById("workName").value;
-            elements.time1 = document.getElementById("")
-            elements.slot = workStr.join(",");
+            /*elements.time1 = document.getElementById("");*/
+           // elements.slot = workStr.join(",");
+            var endSlot = workStr.toString();
+            console.log(endSlot);
+            /*endSlot.replace('[','{');
+            endSlot.replace(']','}');*/
+            endSlot = "{" + endSlot + "}";
+            console.log(endSlot);
+            elements.slot = endSlot;
             //elements.extra = document.getElementById("workExtra").value;
 
             addData = JSON.stringify(elements);
@@ -330,22 +348,6 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
             }
         };
 
-        //新增订单
-        /*$scope.addWork = function () {
-            if (workAddValidate()) {
-                $("#modal-add").modal('hide');
-                console.log(addData);
-                myHttpService.post(serviceList.AddShift, addData).then(function successCallback() {
-                    //用强制刷新解决按钮不能连续响应
-                    location.reload();
-                }, function errorCallback() {
-                    notification.sendNotification("alert", "请求失败");
-                })
-            } else {
-                notification.sendNotification("alert", "参数错误");
-            }
-            //addData.splice(0, addData.length);
-        };*/
 
         //获得表单信息
         var getInfo = function () {
