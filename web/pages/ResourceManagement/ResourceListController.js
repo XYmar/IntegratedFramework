@@ -10,7 +10,7 @@ angular.module("IntegratedFramework.ResourceListController", ['ngRoute'])
         })
     }])
 
-    .controller('ResourceListController', function ($scope, $http, myHttpService, serviceList, validate, notification, renderTableService, dispatchApsService, confirm,enter) {
+    .controller('ResourceListController', function ($scope,$filter, $http, myHttpService, serviceList, validate, notification, renderTableService, dispatchApsService, confirm,enter) {
 
         layer.load(0);
         enter.enterDown();
@@ -69,6 +69,13 @@ angular.module("IntegratedFramework.ResourceListController", ['ngRoute'])
             params.rate = parseInt($("input[name='add-rate']").val());
            //params.state = $("input[name='add-state']").val();
             params.state = $("#selectState option:selected").val();
+            params.classifyValue = $("#selectClass option:selected").val()
+            if ($("#selectClass option:selected").val() === '生产') {
+                params.classify = 0
+            }else if ($("#selectClass option:selected").val() === '运输'){
+                params.classify = 1
+            }
+           /* params.classify = $("#selectClass option:selected").val();*/
             addData = JSON.stringify(params);
 
 
@@ -111,9 +118,19 @@ angular.module("IntegratedFramework.ResourceListController", ['ngRoute'])
                 $("#add-state").removeClass("has-error");
                 $("#add-state").addClass(" has-success");
             }
+            if (!validate.checkLength(params.classifyValue)) {
+                $("#add-classification").removeClass("has-success");
+                $("#add-classification").addClass("has-error");
+            } else {
+                $("#add-classification").removeClass("has-error");
+                $("#add-classification").addClass(" has-success");
+            }
+
 
             if (validate.checkLength(params.name) && validate.checkLength(params.rate) && validate.checkNumber(params.rate) &&
-                validate.checkLength(params.nameShift) && validate.checkLength(params.weekend) && validate.checkLength(params.state)) {
+                validate.checkLength(params.nameShift) && validate.checkLength(params.weekend) && validate.checkLength(params.state)
+                && validate.checkLength(params.classifyValue)
+            ) {
                 return true;
             } else {
                 return false;
@@ -178,6 +195,32 @@ angular.module("IntegratedFramework.ResourceListController", ['ngRoute'])
                 notification.sendNotification("alert", "输入有误");
             }
         };
+        $scope.addResource_fake = function () {
+            if (resourceAddValidate()){
+                $("#modal-add").modal('hide');
+                console.log(1)
+              /*  var classvalue
+                if($("#selectClass option:selected").val()==='生产') {
+                    classvalue = 0
+                }else {
+                    classvalue = 1
+                }*/
+
+                $scope.resourceList.push({idR:"",
+                    name:$("input[name='add-name']").val(),
+                    nameShift:$("#selectAdd option:selected").val(),
+                    rate:parseInt($("input[name='add-rate']").val()),
+                    weekend:$("#selectAdd2 option:selected").val(),
+                    state:$("#selectState option:selected").val(),
+                    classify:$("#selectClass option:selected").val() === '生产' ? 0:1
+                })
+                console.log(2)
+                notification.sendNotification("confirm", "添加成功");
+            }else {
+                notification.sendNotification("alert", "输入有误");
+            }
+
+        }
 
         //获得表单信息
         var getInfo = function () {
@@ -266,10 +309,65 @@ angular.module("IntegratedFramework.ResourceListController", ['ngRoute'])
                 }
             }
         };
+        $scope.deleteResource_fake = function () {
+            /*var a = document.getElementsByName("check");
+            var row = 1
+            for (var i = 0; i < a.length; i++) {
+                if (a[i].checked) {
+                    console.log(a[i].parentNode,1)
+                    console.log(a[i].parentElement,2)
+                    a[i].parentElement.parentElement.display = 'none'
+                }
+                row++;
+            }
+            return true;*/
+            if(getInfo()){
+                if (confirm.confirmDel()){
+                    var a = document.getElementsByName("check")
+                    var row = 1
+                    for (var i = 0; i < a.length; i++) {
+                        if (a[i].checked) {
+                            console.log(a[i].parentElement.parentElement)
+                            a[i].parentElement.parentElement.parentElement.style.display = 'none'
+                        }
+                        row++;
+                    }
+                    notification.sendNotification("confirm", "删除成功");
+                }
+
+            }
+
+        }
+
 
         $scope.reset = function () {
             $("input").val('');
             $("div").removeClass("has-error");
             $("div").removeClass("has-success");
+        }
+        $scope.toggleResourceState = function (resource) {
+            resource.state = !resource.state
+        }
+        $scope.searchByName = function () {
+            $scope.searchList = []
+           /* $scope.resourceList = $filter("filter")($scope.resourceList,$('#seachvalue'))*/
+            /*$scope.searchList = $filter("filter")($scope.resourceList,$("#seachvalue").val())*/
+            var list = $scope.resourceList
+            var value = $('#seachvalue').val()
+            if(value === ''){
+                $scope.searchList = []
+                return
+            }
+            for (var i=0;i<list.length;i++){
+                var result = list[i].name.indexOf(value)
+                console.log(result)
+                if(result > -1) {
+                    $scope.searchList.push(list[i])
+                }
+            }
+            if ($scope.searchList.length === 0) {
+                notification.sendNotification("alert", "没有符合该条件的结果！")
+            }
+            return $scope.searchList
         }
     });
