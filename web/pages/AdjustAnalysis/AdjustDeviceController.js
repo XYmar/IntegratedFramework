@@ -46,12 +46,15 @@ angular.module("IntegratedFramework.AdjustDeviceController", ['ngRoute'])
         };
 
         //异常处理
-        $scope.HandleResource = function (event) {
+        /*$scope.HandleResource = function (event) {
             layer.confirm('是否处理当前异常?', {
                 btn: ['确定', '取消'] //按钮
             }, function (index) {
                 layer.load();
                 myHttpService.get(serviceList.getAllAdjustDeviceException).then(function (response) {
+                    console.log(response.data);
+                    console.log(response.data.state);
+
                     if (response.data.state == 1) {  //撤销
                         cancelResource(event);
                     }else if(response.data.state == 0){  //恢复
@@ -66,9 +69,36 @@ angular.module("IntegratedFramework.AdjustDeviceController", ['ngRoute'])
                 layer.close(index);
                 notification.sendNotification("alert", "取消异常处理");
             });
-        };
+        };*/
 
-        function cancelResource(event) {
+        $scope.HandleResource = function(event) {
+            layer.confirm('是否处理当前异常?', {
+                btn: ['确定', '取消'] //按钮
+            }, function (index) {
+                layer.load();
+                var e = event || window.event;
+                var target = e.target || e.srcElement;
+                if (target.parentNode.parentNode.tagName.toLowerCase() == "td") {
+                    var rowIndex = target.parentNode.parentNode.parentNode.rowIndex;
+                    var id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
+
+                    //alert(id);
+                    myHttpService.get(serviceList.deviceProcessHandling + "?id=" + id).then(function successCallback(response) {
+                        hideLoadingPage();
+                    }, function errorCallback() {
+                        notification.sendNotification("alert", "请求失败...");
+                    })
+                }
+                layer.close(index);
+            }, function (index) {
+                layer.close(index);
+                notification.sendNotification("alert", "取消异常处理");
+            });
+
+
+        }
+
+        /*function cancelResource(event) {
             var e = event || window.event;
             var target = e.target || e.srcElement;
             if (target.parentNode.parentNode.tagName.toLowerCase() == "td") {
@@ -81,7 +111,7 @@ angular.module("IntegratedFramework.AdjustDeviceController", ['ngRoute'])
                     notification.sendNotification("alert", "请求失败...");
                 })
             }
-        }
+        }*/
 
         function resumeResource(event) {
             var e = event || window.event;
@@ -99,18 +129,18 @@ angular.module("IntegratedFramework.AdjustDeviceController", ['ngRoute'])
         }
 
 
-       /* myHttpService.get(serviceList.queryApsState).then(function (response) {
-            if (response.data.result == "ok") {
-                if (response.data.data.state == 0) {
-                    $("#modal-add").modal({show: 'true'});
-                } else {
-                    notification.sendNotification("alert", "APS正在计算中，无法排程");
-                    // layer.msg('APS正在计算中，无法排程!', {icon: 2});
-                }
-            } else {
-                notification.sendNotification("alert", "查询APS状态失败，请重试");
-                // layer.msg('查询APS状态失败，请重试!', {icon: 2});
-            }
-        });*/
+        /* myHttpService.get(serviceList.queryApsState).then(function (response) {
+             if (response.data.result == "ok") {
+                 if (response.data.data.state == 0) {
+                     $("#modal-add").modal({show: 'true'});
+                 } else {
+                     notification.sendNotification("alert", "APS正在计算中，无法排程");
+                     // layer.msg('APS正在计算中，无法排程!', {icon: 2});
+                 }
+             } else {
+                 notification.sendNotification("alert", "查询APS状态失败，请重试");
+                 // layer.msg('查询APS状态失败，请重试!', {icon: 2});
+             }
+         });*/
 
     });

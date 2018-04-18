@@ -28,7 +28,6 @@
           <element id="library" level="project" name="Spring-4.3.8.RELEASE" />
           <element id="library" level="project" name="ojdbc8" />
         </element>
-        <element id="dir-copy" path="$PROJECT_DIR$/web" />
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/IntegratedFramework-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
