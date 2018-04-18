@@ -6,6 +6,7 @@ import com.rengu.actions.SuperAction;
 import com.rengu.util.ApsTools;
 import com.rengu.util.Tools;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 /**
@@ -17,7 +18,7 @@ public class ErrorProcessAction extends SuperAction {
     ErrorProcessDao dao = new ErrorProcessDao();
 
     //设备调整
-    public void processDeviceError() {
+    public void processDeviceError() throws SQLException, ClassNotFoundException {
         ActionContext context = ActionContext.getContext();
         Map<String, Object> parameterMap = context.getParameters();
 

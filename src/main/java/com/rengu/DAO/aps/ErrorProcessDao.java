@@ -5,6 +5,7 @@ import com.rengu.util.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public class ErrorProcessDao {
 
     //设备故障
-    public Integer processDeviceError(String id) {
+    public Integer processDeviceError(String id) throws SQLException, ClassNotFoundException {
 
         Session session = MySessionFactory.getSessionFactory().getCurrentSession();
         if (!session.getTransaction().isActive()) {
@@ -24,20 +25,81 @@ public class ErrorProcessDao {
 
         Integer result = ApsTools.UNKNOWN;
 
-        Query query = session.createQuery("from RG_AdjustDeviceEntity entity where entity.id=:id");
-        query.setParameter("id", id);
-        List list = query.list();
+        List list = session.createQuery("from RG_AdjustDeviceEntity entity where entity.id=:id").setParameter("id", id).list();
+
         if (list.size() == 1 && list.get(0) instanceof RG_AdjustDeviceEntity) {
             RG_AdjustDeviceEntity entity = (RG_AdjustDeviceEntity) list.get(0);
 
+
+            if(entity.getState() == 0){ //恢复资源
+                //从资源表找到对应的资源
+                String idResource = entity.getResoureId();
+                RG_ResourceEntity resourceEntity = DAOFactory.getResourceInstance().findAllById(session,idResource);
+
+                //将资源表该资源State更新为1
+                Byte b = 1;
+                resourceEntity.setState(b);
+
+                //APS将资源表该资源State更新为1
+                String sql1 = "UPDATE " + DatabaseInfo.APS_RESOURCE + " SET STATE = 1 WHERE ID = '" + idResource + "'";
+                Tools.executeSQLForUpdate(DatabaseInfo.ORACLE, DatabaseInfo.APS, sql1);
+
+                //调重启订单接口
+                result = ApsTools.instance().executeCommand(ApsTools.ResumeOrderHandlingURL());
+
+               /* Byte orderState = 0;
+                List<RG_OrderEntity> orderEntityList = DAOFactory.getOrdersDAOInstance().findByState(orderState);*/
+
+                //查询APS订单表，判断是否有候选订单，state=0
+                String sql = "SELECT * FROM " + DatabaseInfo.APS_ORDER + " WHERE STATE = 0";
+                List orderList = Tools.executeSQLForList(DatabaseInfo.ORACLE, DatabaseInfo.APS, sql);
+
+                if (orderList.size() > 0) {
+                    ApsTools.instance().getInterAdjust();
+                }
+            }else if(entity.getState() == 1){//撤销资源
+                //调撤销接口
+                result = ApsTools.instance().executeCommand(ApsTools.instance().getCancelDeviceURL(entity));
+
+                String idResource = entity.getResoureId();
+
+                //从资源表找到对应的资源
+                RG_ResourceEntity resourceEntity = DAOFactory.getResourceInstance().findAllById(session,idResource);
+
+                //此资源的类型
+                String idTypeResource = resourceEntity.getIdTypeResource();
+
+                //找到此类型的资源的集合
+                List<RG_ResourceEntity> resourceEntityList = (List<RG_ResourceEntity>) session.createQuery("select resource from RG_ResourceEntity resource where resource.idTypeResource =:idTypeResource").setParameter("idTypeResource", idTypeResource).list();
+
+                //判断资源是否单个
+                if (resourceEntityList.size() == 1) {  //单个
+                    /*ApsTools.instance().executeCommand(ApsTools.instance().getCancelDeviceURL(adjustDeviceEntity));*/
+                    WebSocketNotification.broadcast(Tools.creatNotificationMessage("资源不足，无法计算", "alert"));
+
+                } else {    //不是单个
+                    //查询APS订单表，判断是否有候选订单，state=0
+                    String sql = "SELECT * FROM " + DatabaseInfo.APS_ORDER + " WHERE STATE = 0";
+                    List orderList = Tools.executeSQLForList(DatabaseInfo.ORACLE, DatabaseInfo.APS, sql);
+                    //List<RG_OrderEntity> orderEntityList = (List<RG_OrderEntity>) session.createQuery("select order from RG_OrderEntity order where order.state =:state").setParameter("state", 0).list();
+
+                    if (orderList.size() > 0) {
+                        ApsTools.instance().getInterAdjust();
+
+                    }
+
+                }
+            }
+
+
             //撤销资源
-            if (entity.getCancelTime() != null && entity.getLatestCancelTime() != null) {
+            /*if (entity.getCancelTime() != null && entity.getLatestCancelTime() != null) {
                 result = ApsTools.instance().executeCommand(ApsTools.instance().getCancelDeviceURL(entity));
             }
             //设置时段不可用
             else if (entity.getUnavailableStartDate() != null && entity.getUnavailableEndDate() != null) {
                 result = ApsTools.instance().executeCommand(ApsTools.instance().getUnavailableDeviceURL(entity));
-            }
+            }*/
 
             //更新故障的状态、创建
             if (result == ApsTools.STARTED) {
