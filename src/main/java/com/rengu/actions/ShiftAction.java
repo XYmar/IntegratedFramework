@@ -90,12 +90,28 @@ public class ShiftAction extends SuperAction implements ModelDriven<RG_ShiftEnti
         RG_ShiftEntity rg_shiftEntity = DAOFactory.getShiftInstance().findAllById(session, id);
         if (rg_shiftEntity != null) {
             //清空APS数据库
-            String[] tableNames = {DatabaseInfo.APS_SHIFT};
-            Tools.executeSQLForInitTable(DatabaseInfo.ORACLE, DatabaseInfo.APS, tableNames);
+            /*String[] tableNames = {DatabaseInfo.APS_SHIFT};
+            Tools.executeSQLForInitTable(DatabaseInfo.ORACLE, DatabaseInfo.APS, tableNames);*/
+
+            //判断此班次是否存在，不存在则插入，存在则修改
+            String sql0 = "SELECT * FROM " + DatabaseInfo.APS_SHIFT + " WHERE ID = '" + id + "'";
+            List shiftList = Tools.executeSQLForList(DatabaseInfo.ORACLE, DatabaseInfo.APS, sql0);
+
+            if(shiftList.size() == 0){ //插入
+                Tools.executeSQLForUpdate(DatabaseInfo.ORACLE, DatabaseInfo.APS, EntityConvertToSQL.insertSQLForAPS(rg_shiftEntity));
+
+            }else if(shiftList.size() == 1){
+                //String sql = "UPDATE " + DatabaseInfo.APS_RESOURCE + " SET IDSHIFT = '{\"" + rg_shiftEntity.getId() + "\"}'";
+                String sql = "UPDATE " + DatabaseInfo.APS_SHIFT + " SET SLOT =  '" + rg_shiftEntity.getSlot() + "'" + " WHERE ID = '" + id + "'";
+                String sql2 = "UPDATE " + DatabaseInfo.APS_SHIFT + " SET NAME =  '" + rg_shiftEntity.getName() + "'" + " WHERE ID = '" + id + "'";
+                Tools.executeSQLForUpdate(DatabaseInfo.ORACLE, DatabaseInfo.APS, sql);
+                Tools.executeSQLForUpdate(DatabaseInfo.ORACLE, DatabaseInfo.APS, sql2);
+
+            }
             //插入
-            String sql = "UPDATE " + DatabaseInfo.APS_RESOURCE + " SET IDSHIFT = '{\"" + rg_shiftEntity.getId() + "\"}'";
+            /*String sql = "UPDATE " + DatabaseInfo.APS_RESOURCE + " SET IDSHIFT = '{\"" + rg_shiftEntity.getId() + "\"}'";
             Tools.executeSQLForUpdate(DatabaseInfo.ORACLE, DatabaseInfo.APS, EntityConvertToSQL.insertSQLForAPS(rg_shiftEntity));
-            Tools.executeSQLForUpdate(DatabaseInfo.ORACLE, DatabaseInfo.APS, sql);
+            Tools.executeSQLForUpdate(DatabaseInfo.ORACLE, DatabaseInfo.APS, sql);*/
             // 调用aps计算
             ApsTools.instance().startAPSSchedule(UUID.randomUUID().toString());
         }

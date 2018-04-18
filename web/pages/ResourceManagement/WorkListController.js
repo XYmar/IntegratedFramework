@@ -54,6 +54,11 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
                 var idInfo = JSON.stringify(params);
 
                 myHttpService.post(serviceList.saveAPS,idInfo).then(function successCallback() {
+                    myHttpService.get(serviceList.ListShift).then(function (response) {
+                        $scope.workList = response.data;
+
+                        hideLoadingPage();
+                    });
                 }, function errorCallback() {
                     notification.sendNotification("alert", "请求失败");
                 });
@@ -226,28 +231,28 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
             dele.options.remove(index);
         }
         ;
-      /*  $scope.addNewWorkInfo = function () {
-            var workList = document.getElementById("addWorkList");
-            var workStr = [];
-            for (var i = 0; i < workList.length; i++) {
-                workStr[i] = workList[i].text;
-            }
-            var form = document.getElementById("addWorkList");
-            var elements = {};
-            elements.name = document.getElementById("workName").value;
-            elements.workInfo = workStr;
-            elements[2] = document.getElementById("workExtra").value;
-            console.log(elements);
-            $("#modal-add").modal('hide');
-            myHttpService.post(serviceList.AddShift, elements).then(function successCallback() {
-                //用强制刷新解决按钮不能连续响应
-                location.reload();
-            }, function errorCallback() {
-                notification.sendNotification("alert", "请求失败");
-            })
-        }*/
+        /*  $scope.addNewWorkInfo = function () {
+              var workList = document.getElementById("addWorkList");
+              var workStr = [];
+              for (var i = 0; i < workList.length; i++) {
+                  workStr[i] = workList[i].text;
+              }
+              var form = document.getElementById("addWorkList");
+              var elements = {};
+              elements.name = document.getElementById("workName").value;
+              elements.workInfo = workStr;
+              elements[2] = document.getElementById("workExtra").value;
+              console.log(elements);
+              $("#modal-add").modal('hide');
+              myHttpService.post(serviceList.AddShift, elements).then(function successCallback() {
+                  //用强制刷新解决按钮不能连续响应
+                  location.reload();
+              }, function errorCallback() {
+                  notification.sendNotification("alert", "请求失败");
+              })
+          }*/
 
-      //弹框添加判断
+        //弹框添加判断
         var workNewAddValidate = function () {
             var workList = document.getElementById("addWorkList");
             var workStr = [];
@@ -267,7 +272,7 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
             var elements = {};
             elements.name = document.getElementById("workName").value;
             /*elements.time1 = document.getElementById("");*/
-           // elements.slot = workStr.join(",");
+            // elements.slot = workStr.join(",");
             var endSlot = workStr.toString();
             console.log(endSlot);
             /*endSlot.replace('[','{');
@@ -288,7 +293,7 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
 
             //&&validate.checkLength(elements.extra) && validate.checkNumber(elements.extra)
             /*if (validate.checkLength(elements.name) && validate.checkString(elements.name) ) {*/
-                return true;
+            return true;
             /*} else {
 
                 return false;
@@ -343,7 +348,7 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
 
             /*if (validate.checkLength(params.name) && validate.checkString(params.name)*/
             if (validate.checkLength(params.name)
-                /* && validate.checkLength(params.slot) && validate.checkNumber(params.slot) && validate.checkLength(params.extra) && validate.checkNumber(params.extra)*/) {
+            /* && validate.checkLength(params.slot) && validate.checkNumber(params.slot) && validate.checkLength(params.extra) && validate.checkNumber(params.extra)*/) {
                 return true;
             } else {
 
@@ -401,7 +406,23 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
                 //edit_params.extra = editData.extra;
                 var update_data = angular.toJson(edit_params);
                 myHttpService.post(serviceList.UpdateShift, update_data).then(function successCallback() {
-                   location.reload();
+                    myHttpService.get(serviceList.ListShift).then(function (response) {
+                        $scope.workList = response.data;
+
+                        hideLoadingPage();
+                    });
+
+                    layer.confirm('是否下发?', {
+                        btn: ['确定', '取消'] //按钮
+                    }, function (index) {
+                        layer.load();
+                        confirmDispatchAps();
+                        layer.close(index);
+                    }, function (index) {
+                        layer.close(index);
+                        notification.sendNotification("alert", "取消下发");
+                    });
+
                 }, function errorCallback() {
                     notification.sendNotification("alert", "请求失败");
                 })
