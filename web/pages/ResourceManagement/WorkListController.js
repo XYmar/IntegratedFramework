@@ -317,12 +317,14 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
         var workEditValidate = function () {
             var params = {};
             params.name = $("input[name='edit-name']").val();
-            /*params.slot = $("input[name='edit-slot']").val();*/
-            params.slot = slot;
+            params.slot = $("input[name='edit-slot']").val();
+            /*params.slot = slot;*/
             //params.extra = parseInt($("input[name='edit-extra']").val());
             editData = params;
 
-            if (!validate.checkString(params.name) || !validate.checkLength(params.name)) {
+            /*if (!validate.checkString(params.name) || !validate.checkLength(params.name))*/
+            if (!validate.checkLength(params.name))
+            {
                 $("#edit-name").removeClass(" has-success");
                 $("#edit-name").addClass(" has-error");
             } else {
@@ -339,7 +341,8 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
                 $("#edit-extra").addClass(" has-success");
             }*/
 
-            if (validate.checkLength(params.name) && validate.checkString(params.name)
+            /*if (validate.checkLength(params.name) && validate.checkString(params.name)*/
+            if (validate.checkLength(params.name)
                 /* && validate.checkLength(params.slot) && validate.checkNumber(params.slot) && validate.checkLength(params.extra) && validate.checkNumber(params.extra)*/) {
                 return true;
             } else {
@@ -398,7 +401,7 @@ angular.module("IntegratedFramework.WorkListController", ['ngRoute'])
                 //edit_params.extra = editData.extra;
                 var update_data = angular.toJson(edit_params);
                 myHttpService.post(serviceList.UpdateShift, update_data).then(function successCallback() {
-                    location.reload();
+                   location.reload();
                 }, function errorCallback() {
                     notification.sendNotification("alert", "请求失败");
                 })

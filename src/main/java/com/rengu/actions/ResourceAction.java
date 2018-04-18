@@ -22,14 +22,14 @@ import java.util.Set;
  */
 public class ResourceAction extends SuperAction {
 
-    /*public void getAllResource() throws Exception {
+    public void getAllResource() throws Exception {
         ResourceDAO resourceDAO = DAOFactory.getResourceInstance();
         List list = resourceDAO.findAll();
         String jsonString = Tools.entityConvertToJsonString(list);
         Tools.jsonPrint(jsonString, this.httpServletResponse);
-    }*/
+    }
 
-    public void getAllResource() throws Exception {
+    /*public void getAllResource() throws Exception {
 
         Session session = MySessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.getTransaction();
@@ -45,7 +45,7 @@ public class ResourceAction extends SuperAction {
         String jsonString = Tools.entityConvertToJsonString(rg_resourceEntityList);
         Tools.jsonPrint(jsonString, this.httpServletResponse);
         session.close();
-    }
+    }*/
 
     /*public void save() throws Exception {
         Session session = MySessionFactory.getSessionFactory().openSession();
